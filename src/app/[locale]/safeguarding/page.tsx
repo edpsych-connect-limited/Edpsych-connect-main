@@ -8,20 +8,58 @@
  * KCSIE 2023 compliant safeguarding tools
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Shield, AlertTriangle, Users, FileText, Plus,
   Search, Filter, Phone, Clock,
-  CheckCircle, XCircle, Eye, Lock
+  CheckCircle, XCircle, Eye, Lock, Loader2
 } from 'lucide-react';
 import { FeatureGate } from '@/components/subscription/FeatureGate';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { Feature } from '@/types/prisma-enums';
+
+interface SafeguardingStats {
+  activeConcerns: number;
+  monitoring: number;
+  resolvedLast30Days: number;
+  externalReferrals: number;
+}
+
+interface TrainingStats {
+  upToDate: number;
+  dueSoon: number;
+  overdue: number;
+  modules: Array<{ name: string; frequency: string; compliance: number }>;
+}
 
 // This page requires appropriate role-based access
 // DSL, Deputy DSL, or safeguarding-trained staff only
 
 function SafeguardingDashboardContent() {
   const [activeTab, setActiveTab] = useState<'concerns' | 'chronology' | 'training'>('concerns');
+  const [stats, setStats] = useState<SafeguardingStats | null>(null);
+  const [trainingStats, setTrainingStats] = useState<TrainingStats | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch('/api/safeguarding/dashboard');
+        if (res.ok) {
+          const json = await res.json();
+          if (json.data) {
+            setStats(json.data.stats);
+            setTrainingStats(json.data.training);
+          }
+        }
+      } catch {
+        // API not yet available — leave stats null (empty state shown)
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -102,36 +140,50 @@ function SafeguardingDashboardContent() {
               </ul>
             </div>
             {/* Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              <MetricCard
-                icon={AlertTriangle}
-                label="Active Concerns"
-                value="12"
-                subtext="Requiring action"
-                color="red"
-              />
-              <MetricCard
-                icon={Eye}
-                label="Monitoring"
-                value="8"
-                subtext="Under observation"
-                color="amber"
-              />
-              <MetricCard
-                icon={CheckCircle}
-                label="Resolved (30 days)"
-                value="15"
-                subtext="Successfully closed"
-                color="green"
-              />
-              <MetricCard
-                icon={FileText}
-                label="External Referrals"
-                value="3"
-                subtext="To MASH/Social Care"
-                color="purple"
-              />
-            </div>
+            {loading ? (
+              <div className="flex items-center justify-center py-12">
+                <Loader2 className="w-6 h-6 animate-spin text-red-500" />
+              </div>
+            ) : stats ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <MetricCard
+                  icon={AlertTriangle}
+                  label="Active Concerns"
+                  value={String(stats.activeConcerns)}
+                  subtext="Requiring action"
+                  color="red"
+                />
+                <MetricCard
+                  icon={Eye}
+                  label="Monitoring"
+                  value={String(stats.monitoring)}
+                  subtext="Under observation"
+                  color="amber"
+                />
+                <MetricCard
+                  icon={CheckCircle}
+                  label="Resolved (30 days)"
+                  value={String(stats.resolvedLast30Days)}
+                  subtext="Successfully closed"
+                  color="green"
+                />
+                <MetricCard
+                  icon={FileText}
+                  label="External Referrals"
+                  value={String(stats.externalReferrals)}
+                  subtext="To MASH/Social Care"
+                  color="purple"
+                />
+              </div>
+            ) : (
+              <div className="mb-8">
+                <EmptyState
+                  title="Safeguarding data unavailable"
+                  description="Unable to load concern statistics. Please refresh or contact support."
+                  className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+                />
+              </div>
+            )}
 
             {/* Concerns List */}
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
@@ -178,60 +230,69 @@ function SafeguardingDashboardContent() {
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Staff Safeguarding Training</h2>
               
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-green-700 dark:text-green-400">Up to Date</span>
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                  </div>
-                  <p className="text-3xl font-bold text-green-600">45</p>
-                  <p className="text-sm text-green-600 dark:text-green-400">Staff members</p>
+              {loading ? (
+                <div className="flex items-center justify-center py-8">
+                  <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
                 </div>
-                
-                <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-amber-700 dark:text-amber-400">Due Soon</span>
-                    <Clock className="w-5 h-5 text-amber-500" />
+              ) : trainingStats ? (
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-green-700 dark:text-green-400">Up to Date</span>
+                      <CheckCircle className="w-5 h-5 text-green-500" />
+                    </div>
+                    <p className="text-3xl font-bold text-green-600">{trainingStats.upToDate}</p>
+                    <p className="text-sm text-green-600 dark:text-green-400">Staff members</p>
                   </div>
-                  <p className="text-3xl font-bold text-amber-600">8</p>
-                  <p className="text-sm text-amber-600 dark:text-amber-400">Within 30 days</p>
-                </div>
-                
-                <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-red-700 dark:text-red-400">Overdue</span>
-                    <XCircle className="w-5 h-5 text-red-500" />
+                  
+                  <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-amber-700 dark:text-amber-400">Due Soon</span>
+                      <Clock className="w-5 h-5 text-amber-500" />
+                    </div>
+                    <p className="text-3xl font-bold text-amber-600">{trainingStats.dueSoon}</p>
+                    <p className="text-sm text-amber-600 dark:text-amber-400">Within 30 days</p>
                   </div>
-                  <p className="text-3xl font-bold text-red-600">2</p>
-                  <p className="text-sm text-red-600 dark:text-red-400">Action required</p>
+                  
+                  <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-red-700 dark:text-red-400">Overdue</span>
+                      <XCircle className="w-5 h-5 text-red-500" />
+                    </div>
+                    <p className="text-3xl font-bold text-red-600">{trainingStats.overdue}</p>
+                    <p className="text-sm text-red-600 dark:text-red-400">Action required</p>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <EmptyState
+                  title="Training data unavailable"
+                  description="Staff training compliance data will appear here once connected."
+                  className="bg-gray-50 dark:bg-gray-800/60 border-dashed"
+                />
+              )}
             </div>
             
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Required Training</h3>
-              <div className="space-y-3">
-                {[
-                  { name: 'Level 1 Safeguarding Awareness', frequency: 'Annual', compliance: 98 },
-                  { name: 'Prevent Duty Training', frequency: 'Annual', compliance: 95 },
-                  { name: 'FGM Awareness', frequency: 'Annual', compliance: 92 },
-                  { name: 'Online Safety', frequency: 'Annual', compliance: 88 },
-                ].map((training, idx) => (
-                  <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                    <div>
-                      <p className="font-medium text-gray-900 dark:text-white">{training.name}</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{training.frequency} refresh</p>
+            {trainingStats && trainingStats.modules.length > 0 && (
+              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Required Training</h3>
+                <div className="space-y-3">
+                  {trainingStats.modules.map((training, idx) => (
+                    <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                      <div>
+                        <p className="font-medium text-gray-900 dark:text-white">{training.name}</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{training.frequency} refresh</p>
+                      </div>
+                      <div className="text-right">
+                        <p className={`font-bold ${training.compliance >= 95 ? 'text-green-600' : training.compliance >= 85 ? 'text-amber-600' : 'text-red-600'}`}>
+                          {training.compliance}%
+                        </p>
+                        <p className="text-xs text-gray-500">compliance</p>
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <p className={`font-bold ${training.compliance >= 95 ? 'text-green-600' : training.compliance >= 85 ? 'text-amber-600' : 'text-red-600'}`}>
-                        {training.compliance}%
-                      </p>
-                      <p className="text-xs text-gray-500">compliance</p>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
       </main>
@@ -276,4 +337,3 @@ export default function SafeguardingPage() {
     </FeatureGate>
   );
 }
-
