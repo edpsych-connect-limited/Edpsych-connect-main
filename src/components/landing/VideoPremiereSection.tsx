@@ -3,271 +3,194 @@
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
- * 
- * CONFIDENTIAL: This software contains proprietary algorithms and trade secrets.
- * Unauthorized copying, modification, distribution, or use is strictly prohibited.
- * 
- * See The Magic In Action - Premium Feature Video Showcase
- * Features AI-generated HeyGen videos showcasing core platform capabilities
- * UPDATED: December 2025 - Comprehensive video library with new value proposition videos
+ *
+ * Landing page video section — 3 focused videos matching the updated narrative.
+ * Scripts: docs/video-scripts/landing-video-scripts.md
  */
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Play, X, ArrowRight, Sparkles, Shield, Users, Brain, Target } from 'lucide-react';
-import { Link } from '@/navigation';
+import { Play, Brain, FileText, Target, X } from 'lucide-react';
 import { VideoTutorialPlayer } from '@/components/video/VideoTutorialPlayer';
 
-// Video configuration - maps to centralized HEYGEN_VIDEO_IDS
-// UPDATED: January 2025 - V3 Featured Introduction with comprehensive platform overview
-const SHOWCASE_VIDEOS = {
-  hero: {
-    id: 'platform-introduction',
-    title: 'EdPsych Connect: Complete Platform Overview',
-    subtitle: 'SEND orchestration informed by DfE, BPS, and IPSEA guidance',
+const LANDING_VIDEOS = [
+  {
+    key: 'landing-platform-overview',
+    title: 'Why I Built EdPsych Connect',
+    subtitle: 'Dr Scott Ighavongbe-Patrick, Chartered EP',
+    description: 'The problem every EP, SENCO, and school leader recognises — and the platform built to solve it from the inside.',
+    icon: Brain,
+    accent: 'from-indigo-500 to-purple-600',
+    accentLight: 'bg-indigo-500/10',
+    accentText: 'text-indigo-400',
+    duration: '90 sec',
   },
-  featured: [
-    {
-      id: 'ehcp-application-journey',
-      title: 'EHCP Management Suite',
-      description: 'Complete EHCP lifecycle management with AI-powered compliance tracking.',
-      icon: Shield,
-      gradient: 'from-blue-500 to-indigo-600',
-    },
-    {
-      id: 'innovation-orchestration',
-      title: 'The EdTech Problem We Solve',
-      description: 'Why existing tools fail schools and how orchestration changes everything.',
-      icon: Target,
-      gradient: 'from-amber-500 to-orange-600',
-    },
-    {
-      // Use the dedicated marketing/demo key (lets us fix casting without touching
-      // the core 'no-child-left-behind' training video).
-      id: 'feature-nclb-engine',
-      title: 'Adaptive Differentiation Engine',
-      description: 'See a walkthrough of differentiation workflows across learner needs.',
-      icon: Users,
-      gradient: 'from-emerald-500 to-teal-600',
-    },
-  ],
-  secondary: [
-    {
-      id: 'value-enterprise-platform',
-      title: 'Enterprise Platform Overview',
-      description: 'See the full scope of the SEND orchestration system.',
-      icon: Sparkles,
-      gradient: 'from-indigo-500 to-purple-600',
-    },
-    {
-      id: 'trust-security',
-      title: 'Enterprise Security',
-      description: 'Encryption, access controls, and GDPR-focused design built in.',
-      icon: Shield,
-      gradient: 'from-slate-500 to-slate-700',
-    },
-    {
-      id: 'ethical-ai-oversight',
-      title: 'Ethical AI Oversight',
-      description: 'Fairness metrics, transparency reports, and review workflows in action.',
-      icon: Brain,
-      gradient: 'from-emerald-500 to-teal-600',
-    },
-    {
-      id: 'feature-byod-architecture',
-      title: 'BYOD Architecture',
-      description: 'Designed for data control with BYOD options.',
-      icon: Brain,
-      gradient: 'from-cyan-500 to-blue-600',
-    },
-  ]
-};
+  {
+    key: 'landing-ehcp-workflow',
+    title: 'EHCP Made Manageable',
+    subtitle: 'Statutory workflow, built in',
+    description: 'From EHC needs assessment request to finalised plan — statutory deadlines tracked, multi-agency contributions coordinated, compliant export ready.',
+    icon: FileText,
+    accent: 'from-cyan-500 to-blue-600',
+    accentLight: 'bg-cyan-500/10',
+    accentText: 'text-cyan-400',
+    duration: '100 sec',
+  },
+  {
+    key: 'landing-intervention-engine',
+    title: 'Interventions That Stay Connected',
+    subtitle: 'Assessment → plan → review → report',
+    description: "Every intervention linked to the assessment that informed it. Goals, frequency, reviews, outcomes — one traceable thread from EP visit to annual review.",
+    icon: Target,
+    accent: 'from-amber-500 to-orange-600',
+    accentLight: 'bg-amber-500/10',
+    accentText: 'text-amber-400',
+    duration: '100 sec',
+  },
+];
 
 export default function VideoPremiereSection() {
-  const [activeVideo, setActiveVideo] = useState<{ id: string; title: string } | null>(null);
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const activeConfig = LANDING_VIDEOS.find((v) => v.key === activeVideo);
 
   return (
     <section className="py-24 bg-slate-900 text-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+
+        {/* Header */}
         <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-indigo-300 text-sm font-medium mb-4"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-indigo-300 text-sm font-medium mb-6"
           >
             <Play className="w-4 h-4" />
-            Video Showcase
+            <span>See It In Action</span>
           </motion.div>
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-bold mb-4"
-          >
-            See The Magic In Action
-          </motion.h2>
-          <motion.p 
+
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-slate-400 text-lg max-w-2xl mx-auto"
+            className="text-4xl md:text-5xl font-bold text-white mb-6"
           >
-            Discover how our platform transforms SEND provision through guided demonstrations of our core features.
+            Hear it from the{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
+              EP who built it
+            </span>
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-xl text-slate-400 max-w-2xl mx-auto"
+          >
+            Three short videos. The problem, the workflow, and the clinical core — explained by a practising Chartered Educational Psychologist.
           </motion.p>
         </div>
 
-        {/* Hero Video */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <div className="bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden">
-            <div className="p-6 border-b border-slate-700">
-              <h3 className="text-2xl font-bold">{SHOWCASE_VIDEOS.hero.title}</h3>
-              <p className="text-slate-400 mt-1">{SHOWCASE_VIDEOS.hero.subtitle}</p>
-            </div>
-            <div className="aspect-video">
-              <VideoTutorialPlayer
-                videoKey={SHOWCASE_VIDEOS.hero.id}
-                title={SHOWCASE_VIDEOS.hero.title}
-                autoPlay={false}
-                className="w-full h-full"
-              />
-            </div>
-          </div>
-        </motion.div>
+        {/* Video cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {LANDING_VIDEOS.map((video, index) => {
+            const Icon = video.icon;
+            return (
+              <motion.div
+                key={video.key}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="group relative bg-slate-800/60 hover:bg-slate-800 border border-slate-700 hover:border-slate-600 rounded-2xl overflow-hidden cursor-pointer transition-all duration-200 hover:shadow-xl hover:shadow-indigo-500/10"
+                onClick={() => setActiveVideo(video.key)}
+              >
+                {/* Gradient top bar */}
+                <div className={`h-1 w-full bg-gradient-to-r ${video.accent}`} />
 
-        {/* Featured Videos - Primary Row */}
-        <div className="mb-12">
-          <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-indigo-400" />
-            Featured Demonstrations
-          </h3>
-          <div className="grid md:grid-cols-3 gap-6">
-            {SHOWCASE_VIDEOS.featured.map((video, idx) => {
-              const Icon = video.icon;
-              return (
-                <motion.div
-                  key={video.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                  className="group relative rounded-2xl overflow-hidden bg-slate-800 border border-slate-700 hover:border-indigo-500 transition-all cursor-pointer"
-                  onClick={() => setActiveVideo({ id: video.id, title: video.title })}
-                >
-                  <div className={`aspect-video bg-gradient-to-br ${video.gradient} relative`}>
-                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30 group-hover:scale-110 group-hover:bg-white/30 transition-all shadow-lg">
-                        <Play className="w-8 h-8 text-white fill-white ml-1" />
-                      </div>
+                <div className="p-6">
+                  {/* Icon + duration */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`w-10 h-10 rounded-xl ${video.accentLight} flex items-center justify-center`}>
+                      <Icon className={`w-5 h-5 ${video.accentText}`} />
                     </div>
-                    <div className="absolute top-3 left-3 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-white" />
-                    </div>
-                    <div className="absolute top-3 right-3 px-2 py-1 bg-black/50 backdrop-blur-sm rounded-full text-xs font-medium text-white/80">
-                      Video Guide
-                    </div>
+                    <span className="text-xs text-slate-500 font-mono">{video.duration}</span>
                   </div>
-                  <div className="p-6">
-                    <h4 className="font-bold text-lg mb-2">{video.title}</h4>
-                    <p className="text-slate-400 text-sm mb-4">{video.description}</p>
-                    <div className="flex items-center gap-2 text-sm text-indigo-400 font-medium group-hover:text-indigo-300">
-                      Watch Now <ArrowRight className="w-4 h-4" />
+
+                  <h3 className="text-lg font-bold text-white mb-1 group-hover:text-indigo-300 transition-colors">
+                    {video.title}
+                  </h3>
+                  <p className={`text-xs font-medium mb-3 ${video.accentText}`}>{video.subtitle}</p>
+                  <p className="text-sm text-slate-400 leading-relaxed">{video.description}</p>
+
+                  {/* Play button */}
+                  <div className="mt-5 flex items-center gap-2">
+                    <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${video.accent} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
+                      <Play className="w-3.5 h-3.5 text-white ml-0.5" fill="white" />
                     </div>
+                    <span className="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">
+                      Watch now
+                    </span>
                   </div>
-                </motion.div>
-              );
-            })}
-          </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* Secondary Videos - Additional Row */}
-        <div>
-          <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
-            <Shield className="w-5 h-5 text-emerald-400" />
-            Deep Dives
-          </h3>
-          <div className="grid md:grid-cols-3 gap-6">
-            {SHOWCASE_VIDEOS.secondary.map((video, idx) => {
-              const Icon = video.icon;
-              return (
-                <motion.div
-                  key={video.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 + 0.3 }}
-                  className="group relative rounded-2xl overflow-hidden bg-slate-800/50 border border-slate-700/50 hover:border-slate-600 transition-all cursor-pointer"
-                  onClick={() => setActiveVideo({ id: video.id, title: video.title })}
-                >
-                  <div className={`aspect-video bg-gradient-to-br ${video.gradient} relative`}>
-                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-14 h-14 bg-white/15 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 group-hover:scale-110 transition-all">
-                        <Play className="w-6 h-6 text-white fill-white ml-0.5" />
-                      </div>
-                    </div>
-                    <div className="absolute top-3 left-3 w-8 h-8 bg-white/15 backdrop-blur-sm rounded-lg flex items-center justify-center">
-                      <Icon className="w-4 h-4 text-white" />
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <h4 className="font-semibold text-base mb-1">{video.title}</h4>
-                    <p className="text-slate-400 text-sm">{video.description}</p>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* CTA */}
+        {/* Attribution */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mt-16 text-center"
+          className="flex items-center justify-center gap-4 pt-2"
         >
-          <Link
-            href="/pricing"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
-          >
-            Explore All Pricing Videos
-            <ArrowRight className="w-5 h-5" />
-          </Link>
+          <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-indigo-500/30 flex-shrink-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/dr-scott-landing.jpg" alt="Dr Scott Ighavongbe-Patrick" className="w-full h-full object-cover" />
+          </div>
+          <p className="text-sm text-slate-400">
+            <span className="text-white font-medium">Dr Scott Ighavongbe-Patrick</span>
+            {' '}· Chartered Educational Psychologist · HCPC PYL042340 · Founder, EdPsych Connect
+          </p>
         </motion.div>
       </div>
 
-      {/* Video Modal */}
-      {activeVideo && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4">
-          <div className="relative w-full max-w-5xl bg-black rounded-2xl overflow-hidden shadow-2xl border border-slate-800">
-            <div className="flex items-center justify-between p-4 border-b border-slate-800">
-              <h3 className="text-lg font-semibold">{activeVideo.title}</h3>
-              <button 
+      {/* Video modal */}
+      {activeVideo && activeConfig && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+          onClick={() => setActiveVideo(null)}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            className="relative w-full max-w-3xl bg-slate-900 rounded-2xl overflow-hidden shadow-2xl border border-slate-700"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-800">
+              <div>
+                <h3 className="font-bold text-white">{activeConfig.title}</h3>
+                <p className={`text-xs ${activeConfig.accentText}`}>{activeConfig.subtitle}</p>
+              </div>
+              <button
                 onClick={() => setActiveVideo(null)}
-                className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
-                aria-label="Close video"
+                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4 text-slate-400" />
               </button>
             </div>
-            <div className="aspect-video">
+            <div className="aspect-video w-full bg-slate-950">
               <VideoTutorialPlayer
-                videoKey={activeVideo.id}
-                title={activeVideo.title}
+                videoKey={activeVideo}
+                title={activeConfig.title}
                 autoPlay={true}
-                className="w-full h-full"
               />
             </div>
-          </div>
+          </motion.div>
         </div>
       )}
     </section>

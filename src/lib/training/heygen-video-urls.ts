@@ -14,6 +14,16 @@
 // ============================================================================
 
 export const HEYGEN_VIDEO_IDS: Record<string, string> = {
+  // ============================================================================
+  // LANDING PAGE VIDEOS (matched to updated landing narrative)
+  // Scripts: docs/video-scripts/landing-video-scripts.md
+  // Record using HEYGEN_DR_SCOTT_AVATAR_ID + HEYGEN_DR_SCOTT_VOICE_ID
+  // After recording, replace placeholder IDs below with real HeyGen video IDs
+  // ============================================================================
+  "landing-platform-overview":   "1504b108b783451e9246cfac493b163f", // PLACEHOLDER — record Video 1
+  "landing-ehcp-workflow":       "5ad6364b3e0944a5bbc055c6b4e35896", // PLACEHOLDER — record Video 2
+  "landing-intervention-engine": "4be8a3b43a2f42c9b538b613c5e002e3", // PLACEHOLDER — record Video 3
+
   // PLATFORM Videos
   // V3 platform intro (TEMPORARY PLACEHOLDER due to 404)
   "platform-introduction": "1504b108b783451e9246cfac493b163f",
