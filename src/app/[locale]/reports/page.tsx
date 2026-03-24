@@ -60,6 +60,9 @@ export default function ReportsPage() {
 
   const drafts = reports.filter(r => r.status === 'DRAFT').length;
   const published = reports.filter(r => r.status === 'PUBLISHED' || r.status === 'GENERATED').length;
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  const thisMonth = reports.filter(r => new Date(r.created_at) > thirtyDaysAgo).length;
 
   return (
     <div className="min-h-screen bg-slate-50 pb-12">
@@ -87,7 +90,7 @@ export default function ReportsPage() {
             { label: 'Total Reports', value: loading ? '…' : reports.length, icon: FileText, colour: 'text-indigo-600 bg-indigo-50' },
             { label: 'Draft', value: loading ? '…' : drafts, icon: Clock, colour: 'text-amber-600 bg-amber-50' },
             { label: 'Published', value: loading ? '…' : published, icon: CheckCircle, colour: 'text-green-600 bg-green-50' },
-            { label: 'This Month', value: loading ? '…' : reports.filter(r => new Date(r.created_at) > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)).length, icon: AlertCircle, colour: 'text-blue-600 bg-blue-50' },
+            { label: 'This Month', value: loading ? '…' : thisMonth, icon: AlertCircle, colour: 'text-blue-600 bg-blue-50' },
           ].map(s => {
             const Icon = s.icon;
             return (

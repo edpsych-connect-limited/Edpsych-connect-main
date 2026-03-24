@@ -90,7 +90,7 @@ export default function AuditPage() {
     if (!authLoading && user) load(page);
   }, [user, authLoading, page, load]);
 
-  useEffect(() => { setPage(1); load(1); }, [filterAction, filterEntity]);
+  useEffect(() => { setPage(1); load(1); }, [filterAction, filterEntity, load]);
 
   if (authLoading) return <div className="flex items-center justify-center min-h-screen text-slate-500">Loading…</div>;
   if (!user) { router.push('/login'); return null; }
