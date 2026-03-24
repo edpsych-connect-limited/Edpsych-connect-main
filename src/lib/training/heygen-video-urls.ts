@@ -20,9 +20,9 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   // Record using HEYGEN_DR_SCOTT_AVATAR_ID + HEYGEN_DR_SCOTT_VOICE_ID
   // After recording, replace placeholder IDs below with real HeyGen video IDs
   // ============================================================================
-  "landing-platform-overview":   "0d69768555a544cda515518911c65bea", // Generated 2026-03-24 — Dr Scott, Why I Built It
-  "landing-ehcp-workflow":       "9c270cdbd1a841e59e057760b4ccc342", // Generated 2026-03-24 — Dr Scott, EHCP Made Manageable
-  "landing-intervention-engine": "347d33547c744df5b8deb0a298d65733", // Generated 2026-03-24 — Dr Scott, Interventions That Stay Connected
+  "landing-platform-overview":   "9b60e5f1d02e4c80bfacd7db976899c3", // Generated 2026-03-24 — Dr Scott voice+avatar, Why I Built It
+  "landing-ehcp-workflow":       "f5c4b68cae51469a9b12578cae33467d", // Generated 2026-03-24 — Dr Scott voice+avatar, EHCP Made Manageable
+  "landing-intervention-engine": "f740cb8e87d340dea2856ba18ec80a6a", // Generated 2026-03-24 — Dr Scott voice+avatar, Interventions That Stay Connected
 
   // PLATFORM Videos
   // V3 platform intro (TEMPORARY PLACEHOLDER due to 404)
