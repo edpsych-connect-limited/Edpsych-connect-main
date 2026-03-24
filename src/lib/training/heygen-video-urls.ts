@@ -53,10 +53,14 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
 
   // ONBOARDING Videos
   "onboarding-platform-tour": "47faddd661d648e5ae34c8360c8b2286",
-  // NOTE (truth-by-code): If you change the casting (avatar/voice) behind this key,
-  // ensure you have documented provenance/consent for any real-person identity.
-  // Avoid swapping identities via Cloudinary overrides without updating provenance.
-  "onboarding-welcome": "ec9d67ec19724552b7ad0b184400a073",
+  "onboarding-welcome": "ec9d67ec19724552b7ad0b184400a073", // "Welcome to Your EdPsych Connect Journey" — Dr Scott
+
+  // ROLE WELCOME Videos (wired to onboarding Step 2 role selection)
+  // Completed Dr Scott videos — 2026-03-24 audit
+  "help-getting-started":     "6c9cbf6132a14d27bd4434e62b8b061e", // "Welcome, Educational Psychologist" — Dr Scott
+  "ep-assessment-deep-dive":  "b19df53306944143868d19a642658b59", // "EPs: The Assessment Suite Deep Dive" — Dr Scott
+  "ep-report-writing":        "ac9987a30eee4a389ac05c1bd5302501", // "EPs: Report Writing Transformed" — Dr Scott
+  "ethical-ai-oversight":     "7de1da950ad34f4b891ecc8f2e153e07", // "Ethical AI Oversight" — Dr Scott
 
   // MICRO-GUIDES (Just-In-Time Intelligence)
   "guide-create-ehcp": "e0fd73d582534c23acdf88c81fd4e616", // Placeholder (using merge-tool ID)
@@ -75,24 +79,25 @@ export const HEYGEN_VIDEO_IDS: Record<string, string> = {
   "sales-studio-overview": "42456f6ea7524f1aaefcb7825d47f6d8",
   "customer-success-studio-overview": "aba880d988a14b628e48d94b3624ebfd",
 
-  // LA- Videos
-  "la-dashboard-overview": "bda257f9263440b0ace5f74875d8e5b6",
-  "la-ehcp-merge-tool": "e0fd73d582534c23acdf88c81fd4e616",
-  "la-professional-requests": "f6bb91fba2b64a9980ad90486156215b",
+  // LA- Videos — completed Dr Scott videos wired 2026-03-24
+  "la-dashboard-overview":      "a6de3b5055744d76ab4628e2c1db03c5", // "Welcome, LA Professional: Your EHCP Command Centre"
+  "la-ehcp-merge-tool":         "69f140791b5d41f297962596324f719a", // "LA Professionals: The EHCP Merge Tool"
+  "la-compliance-analytics":    "98afc3ad59254f39a48740bf02fd773f", // "LA Professionals: Compliance Analytics"
+  "la-professional-requests":   "a6de3b5055744d76ab4628e2c1db03c5", // alias to command centre
 
   // SCHOOL- Videos
   "school-senco-portal": "7a6420de424a477eba6a29ad99a3271d",
 
-  // PARENT- Videos
-  "parent-contributing-views": "a4929f69fc9c4dada50351d378589950",
-  "parent-portal-welcome": "ec76fcbd50954161a040fb0f5ec42738",
-  "parent-understanding-results": "5d2a1d79e71144c884337f44ffc81180",
+  // PARENT- Videos — completed Dr Scott videos wired 2026-03-24
+  "parent-contributing-views":    "0aee08034df44204ad2c8c44900a3174", // "Parents: Making Your Voice Count"
+  "parent-portal-welcome":        "8e9a4345ad7744db9f2cfaadceb70310", // "Welcome, Parent - You Belong Here"
+  "parent-understanding-results": "d8ab29a4f2ff4b5abae561fe00e4ee32", // "Parents: Understanding Your Child's Reports"
 
-  // EHCP- Videos
-  "ehcp-annual-review": "04effa7e0b9147b582008f022e8421b2",
-  "ehcp-appeals": "290dd8919c24405e9f83548d56f37caf",
-  "ehcp-application-journey": "5ad6364b3e0944a5bbc055c6b4e35896",
-  "ehcp-evidence-gathering": "3e05294094ba4d6eabc38e7a981d970e",
+  // EHCP- Videos — completed Dr Scott videos wired 2026-03-24
+  "ehcp-annual-review":             "04effa7e0b9147b582008f022e8421b2",
+  "ehcp-appeals":                   "290dd8919c24405e9f83548d56f37caf",
+  "ehcp-application-journey":       "5ad6364b3e0944a5bbc055c6b4e35896",
+  "ehcp-evidence-gathering":        "3e05294094ba4d6eabc38e7a981d970e",
   "ehcp-professional-contributions": "93e46803ffc4404998abfcdcaa5c09ae",
 
   // EHCP MODULES (hub + advanced workflows)
