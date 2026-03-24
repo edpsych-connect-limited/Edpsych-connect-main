@@ -4,12 +4,8 @@ import React from 'react';
 import Link from 'next/link';
 import { 
   Calendar, 
-  FileText, 
   Activity, 
-  MessageSquare, 
   Clock, 
-  CheckCircle2, 
-  ArrowRight,
   Star,
   BookOpen,
   PlayCircle
@@ -84,33 +80,29 @@ export default function ParentDashboard() {
               </div>
               <div className="p-6">
                 {activeIntervention ? (
-                  <div className="flex items-start gap-4 mb-6">
+                  <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-amber-600 shrink-0">
                       <Star className="w-6 h-6" />
                     </div>
                     <div className="flex-1">
                       <h3 className="font-bold text-slate-900">{activeIntervention.name}</h3>
                       <p className="text-sm text-slate-600 mb-3">{activeIntervention.description}</p>
-                      <div className="w-full bg-slate-100 rounded-full h-2 mb-2">
-                        <div className="bg-amber-500 h-2 rounded-full" style={{ width: '65%' }}></div>
-                      </div>
-                      <div className="flex justify-between text-xs text-slate-500">
-                        <span>65% Completion</span>
-                        <span>Ongoing Strategy</span>
+                      <div className="flex items-center gap-2 text-xs text-slate-500 mt-2">
+                        <span className="px-2 py-1 bg-slate-50 rounded-md border border-slate-100 capitalize">
+                          {activeIntervention.category}
+                        </span>
+                        <span className="px-2 py-1 bg-slate-50 rounded-md border border-slate-100">
+                          {activeIntervention.evidence_level.replace('_', ' ')}
+                        </span>
                       </div>
                     </div>
                   </div>
                 ) : (
-                  <p>No active interventions.</p>
+                  <div className="text-center py-6 text-slate-500">
+                    <Activity className="w-8 h-8 mx-auto mb-2 opacity-40" />
+                    <p className="text-sm">No active support strategy assigned yet.</p>
+                  </div>
                 )}
-                
-                <div className="bg-slate-50 rounded-lg p-4 border border-slate-100">
-                  <h4 className="text-sm font-bold text-slate-900 mb-2">Recent Achievement</h4>
-                  <p className="text-sm text-slate-600 flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-green-500" />
-                    Leo consistently applied the chunking strategy this week!
-                  </p>
-                </div>
               </div>
             </div>
 
@@ -162,23 +154,9 @@ export default function ParentDashboard() {
                   <Clock className="w-5 h-5 text-slate-500" /> Recent Activity
                 </h2>
               </div>
-              <div className="divide-y divide-slate-100">
-                {[
-                  { title: 'Wellbeing Survey Completed', date: 'Today, 9:00 AM', icon: Activity, color: 'text-emerald-600', bg: 'bg-emerald-100' },
-                  { title: 'New Support Plan Drafted', date: 'Yesterday', icon: FileText, color: 'text-blue-600', bg: 'bg-blue-100' },
-                  { title: 'Message from Mrs. Smith (SENCO)', date: 'Jan 12', icon: MessageSquare, color: 'text-purple-600', bg: 'bg-purple-100' },
-                ].map((item, i) => (
-                  <div key={i} className="p-4 flex items-center gap-4 hover:bg-slate-50 transition-colors">
-                    <div className={`w-10 h-10 rounded-full ${item.bg} flex items-center justify-center ${item.color}`}>
-                      <item.icon className="w-5 h-5" />
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-medium text-slate-900">{item.title}</h4>
-                      <p className="text-xs text-slate-500">{item.date}</p>
-                    </div>
-                    <ArrowRight className="w-4 h-4 text-slate-300" />
-                  </div>
-                ))}
+              <div className="p-8 text-center text-slate-500">
+                <Clock className="w-8 h-8 mx-auto mb-2 opacity-40" />
+                <p className="text-sm">Activity history will appear here once your child&apos;s support plan is active.</p>
               </div>
             </div>
 

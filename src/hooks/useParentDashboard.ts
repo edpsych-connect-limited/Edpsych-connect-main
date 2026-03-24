@@ -96,7 +96,7 @@ export function useParentDashboard() {
         const courses = fallbackCourses.filter(c => c.target_audience.includes('Parents')).slice(0, 3);
         setActiveIntervention(intervention);
         setParentCourses(courses);
-        setChildProfile({ id: '1', name: 'Leo', year: 'Year 4', schoolId: 1 });
+        // Do not set a fake child profile on error — show empty state instead
       } finally {
         setLoading(false);
       }
