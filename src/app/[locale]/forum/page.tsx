@@ -106,94 +106,26 @@ const FORUM_CATEGORIES = [
 ];
 
 // Sample trending topics
-const TRENDING_TOPICS = [
-  {
-    id: 't1',
-    title: 'New SEND Code of Practice consultation - your thoughts?',
-    category: 'ehcp-guidance',
-    author: 'Dr Sarah Mitchell',
-    authorRole: 'Senior EP',
-    replies: 47,
-    views: 1234,
-    lastActivity: '2 hours ago',
-    isPinned: true
-  },
-  {
-    id: 't2',
-    title: 'Effective strategies for managing classroom anxiety post-pandemic',
-    category: 'mental-health',
-    author: 'James Parker',
-    authorRole: 'SENCO',
-    replies: 32,
-    views: 856,
-    lastActivity: '4 hours ago',
-    isPinned: false
-  },
-  {
-    id: 't3',
-    title: 'ECCA Framework: Implementation experiences and tips',
-    category: 'assessment-practice',
-    author: 'Dr Scott Ighavongbe-Patrick',
-    authorRole: 'Platform Founder',
-    replies: 89,
-    views: 2341,
-    lastActivity: '1 day ago',
-    isPinned: true
-  },
-  {
-    id: 't4',
-    title: 'Supporting sensory processing differences in mainstream settings',
-    category: 'autism-neurodiversity',
-    author: 'Emma Thompson',
-    authorRole: 'Specialist Teacher',
-    replies: 28,
-    views: 654,
-    lastActivity: '6 hours ago',
-    isPinned: false
-  },
-  {
-    id: 't5',
-    title: 'Working memory interventions: What actually works?',
-    category: 'interventions',
-    author: 'Dr Priya Sharma',
-    authorRole: 'Educational Psychologist',
-    replies: 56,
-    views: 1567,
-    lastActivity: '12 hours ago',
-    isPinned: false
-  }
-];
+// Trending topics and expert contributors are loaded from the API at runtime
 
-// Sample expert contributors
-const EXPERT_CONTRIBUTORS = [
-  {
-    id: 'e1',
-    name: 'Dr Scott Ighavongbe-Patrick',
-    role: 'Platform Founder & EP',
-    avatar: '/images/team/dr-scott.jpg',
-    posts: 234,
-    helpful: 1567,
-    badge: 'Founder'
-  },
-  {
-    id: 'e2',
-    name: 'Dr Sarah Mitchell',
-    role: 'Senior Educational Psychologist',
-    avatar: null,
-    posts: 189,
-    helpful: 1234,
-    badge: 'Expert'
-  },
-  {
-    id: 'e3',
-    name: 'Prof. Michael Chen',
-    role: 'Research Lead',
-    avatar: null,
-    posts: 156,
-    helpful: 987,
-    badge: 'Researcher'
-  }
-];
+interface ForumTopic {
+  id: string;
+  title: string;
+  category: string;
+  author: string;
+  authorRole: string;
+  replies: number;
+  views: number;
+  lastActivity: string;
+  isPinned: boolean;
+}
+
+interface ForumContributor {
+  id: string;
+  name: string;
+  role: string;
+  badge: string;
+}
 
 export default function ForumPage() {
   const { user, isLoading: authLoading } = useAuth();
@@ -201,11 +133,48 @@ export default function ForumPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [trendingTopics, setTrendingTopics] = useState<ForumTopic[]>([]);
+  const [expertContributors, setExpertContributors] = useState<ForumContributor[]>([]);
 
   useEffect(() => {
-    // Simulate loading forum data
-    const timer = setTimeout(() => setIsLoading(false), 500);
-    return () => clearTimeout(timer);
+    async function loadForumData() {
+      try {
+        const res = await fetch('/api/forum/summary');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.trendingTopics) {
+            setTrendingTopics(data.trendingTopics.map((t: any) => ({
+              id: t.id,
+              title: t.title,
+              category: t.category,
+              author: t.author,
+              authorRole: t.authorRole,
+              replies: t.replies ?? 0,
+              views: t.views ?? 0,
+              lastActivity: t.lastActivity
+                ? (typeof t.lastActivity === 'string' && !t.lastActivity.includes('T')
+                  ? t.lastActivity
+                  : new Date(t.lastActivity).toLocaleDateString('en-GB'))
+                : '—',
+              isPinned: t.isPinned ?? false,
+            })));
+          }
+          if (data.expertContributors) {
+            setExpertContributors(data.expertContributors.map((e: any) => ({
+              id: e.id,
+              name: e.name,
+              role: e.role,
+              badge: e.badge,
+            })));
+          }
+        }
+      } catch (err) {
+        // API unavailable — leave arrays empty; EmptyState handles display
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    loadForumData();
   }, []);
 
   const filteredCategories = FORUM_CATEGORIES.filter(cat => 
@@ -213,7 +182,7 @@ export default function ForumPage() {
     cat.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const filteredTopics = TRENDING_TOPICS.filter(topic =>
+  const filteredTopics = trendingTopics.filter(topic =>
     (!selectedCategory || topic.category === selectedCategory) &&
     (topic.title.toLowerCase().includes(searchQuery.toLowerCase()))
   );
@@ -247,16 +216,12 @@ export default function ForumPage() {
             <div className="hidden md:block">
               <div className="flex items-center gap-8 text-center">
                 <div>
-                  <div className="text-3xl font-bold">1,146</div>
+                  <div className="text-3xl font-bold">{FORUM_CATEGORIES.reduce((sum, c) => sum + c.topics, 0).toLocaleString()}</div>
                   <div className="text-blue-200 text-sm">Topics</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold">9,000+</div>
+                  <div className="text-3xl font-bold">{FORUM_CATEGORIES.reduce((sum, c) => sum + c.posts, 0).toLocaleString()}</div>
                   <div className="text-blue-200 text-sm">Posts</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold">2,340</div>
-                  <div className="text-blue-200 text-sm">Members</div>
                 </div>
               </div>
             </div>
@@ -490,7 +455,7 @@ export default function ForumPage() {
                 Expert Contributors
               </h3>
               <div className="space-y-4">
-                {EXPERT_CONTRIBUTORS.map((expert) => (
+                {expertContributors.map((expert) => (
                   <div key={expert.id} className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold">
                       {expert.name.charAt(0)}

@@ -8,14 +8,15 @@
  * Secure collaboration with Health, Social Care, and Education partners
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Users, Shield, FileText, MessageSquare, Calendar, Plus,
   Search, Filter, ChevronRight, Building,
-  CheckCircle, AlertTriangle, Share2, Video, Phone
+  CheckCircle, AlertTriangle, Share2, Video, Phone, Loader2
 } from 'lucide-react';
 import { FeatureGate } from '@/components/subscription/FeatureGate';
 import { Feature } from '@/types/prisma-enums';
+import { EmptyState } from '@/components/ui/EmptyState';
 
 interface Agency {
   id: string;
@@ -29,77 +30,29 @@ interface Agency {
 
 interface Case {
   id: string;
-  studentName: string;
+  studentName?: string;
+  referenceNumber?: string;
   agencies: string[];
   status: 'active' | 'pending' | 'closed';
   lastUpdate: string;
   nextMeeting?: string;
 }
 
-const mockAgencies: Agency[] = [
-  {
-    id: '1',
-    name: 'Community Health Services',
-    type: 'health',
-    contact: 'Dr. Sarah Hughes',
-    email: 'sarah.hughes@nhs.net',
-    sharingAgreement: true,
-    lastActivity: '2025-12-03',
-  },
-  {
-    id: '2',
-    name: "Children's Social Care",
-    type: 'social',
-    contact: 'Mark Thompson',
-    email: 'mark.thompson@council.gov.uk',
-    sharingAgreement: true,
-    lastActivity: '2025-12-01',
-  },
-  {
-    id: '3',
-    name: 'Educational Psychology Service',
-    type: 'education',
-    contact: 'Dr. Emma Richards',
-    email: 'emma.richards@eps.gov.uk',
-    sharingAgreement: true,
-    lastActivity: '2025-11-28',
-  },
-  {
-    id: '4',
-    name: 'CAMHS',
-    type: 'health',
-    contact: 'Team Admin',
-    email: 'camhs.referrals@nhs.net',
-    sharingAgreement: false,
-    lastActivity: '2025-11-15',
-  },
-];
+interface Meeting {
+  id: string;
+  type: string;
+  caseReference?: string;
+  date: string;
+  time: string;
+  attendees: number;
+}
 
-const mockCases: Case[] = [
-  {
-    id: '1',
-    studentName: 'James Patterson',
-    agencies: ['Community Health Services', 'Educational Psychology Service'],
-    status: 'active',
-    lastUpdate: '2025-12-03',
-    nextMeeting: '2025-12-15',
-  },
-  {
-    id: '2',
-    studentName: 'Sophie Ahmed',
-    agencies: ["Children's Social Care", 'CAMHS'],
-    status: 'active',
-    lastUpdate: '2025-12-01',
-    nextMeeting: '2025-12-10',
-  },
-  {
-    id: '3',
-    studentName: 'Oliver Smith',
-    agencies: ['Educational Psychology Service'],
-    status: 'pending',
-    lastUpdate: '2025-11-28',
-  },
-];
+interface DashboardMetrics {
+  activeCases: number;
+  partnerAgencies: number;
+  meetingsThisWeek: number;
+  pendingActions: number;
+}
 
 const agencyTypeConfig = {
   health: { label: 'Health', color: 'bg-blue-500', textColor: 'text-blue-600', bgLight: 'bg-blue-50 dark:bg-blue-900/20' },
@@ -110,6 +63,94 @@ const agencyTypeConfig = {
 
 function CollaborationHubContent() {
   const [activeTab, setActiveTab] = useState<'cases' | 'agencies' | 'meetings'>('cases');
+  const [loading, setLoading] = useState(true);
+  const [cases, setCases] = useState<Case[]>([]);
+  const [agencies, setAgencies] = useState<Agency[]>([]);
+  const [meetings, setMeetings] = useState<Meeting[]>([]);
+  const [metrics, setMetrics] = useState<DashboardMetrics | null>(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const [dashboardRes, casesRes, agenciesRes] = await Promise.all([
+          fetch('/api/collaboration/cases?type=dashboard'),
+          fetch('/api/collaboration/cases?type=cases&status=active'),
+          fetch('/api/collaboration/cases?type=agencies'),
+        ]);
+
+        if (dashboardRes.ok) {
+          const data = await dashboardRes.json();
+          if (data.summary) {
+            setMetrics({
+              activeCases: data.summary.activeCases ?? 0,
+              partnerAgencies: data.summary.partnerAgencies ?? 0,
+              meetingsThisWeek: data.summary.meetingsThisWeek ?? 0,
+              pendingActions: data.summary.pendingActions ?? 0,
+            });
+          }
+        }
+
+        if (casesRes.ok) {
+          const data = await casesRes.json();
+          const raw = data.cases ?? data.data ?? [];
+          setCases(raw.map((c: any) => ({
+            id: c.id,
+            // Use reference number instead of student name for privacy; real name only if API explicitly returns it
+            studentName: c.studentName || undefined,
+            referenceNumber: c.referenceNumber || c.caseReference || c.id,
+            agencies: c.agencies?.map((a: any) => (typeof a === 'string' ? a : a.name)) ?? [],
+            status: (c.status?.toLowerCase() as Case['status']) || 'pending',
+            lastUpdate: c.updatedAt ? new Date(c.updatedAt).toLocaleDateString('en-GB') : c.lastUpdate ?? '—',
+            nextMeeting: c.nextMeeting ?? undefined,
+          })));
+        }
+
+        if (agenciesRes.ok) {
+          const data = await agenciesRes.json();
+          const raw = data.agencies ?? data.data ?? [];
+          setAgencies(raw.map((a: any) => ({
+            id: a.id,
+            name: a.name,
+            type: a.type ?? 'other',
+            contact: a.contactName ?? a.contact ?? '—',
+            email: a.contactEmail ?? a.email ?? '—',
+            sharingAgreement: a.sharingAgreement ?? a.isaActive ?? false,
+            lastActivity: a.lastActivity
+              ? new Date(a.lastActivity).toLocaleDateString('en-GB')
+              : '—',
+          })));
+        }
+
+        // Meetings come from the cases dashboard summary or a dedicated endpoint
+        const meetingsRes = await fetch('/api/collaboration/cases?type=meetings');
+        if (meetingsRes.ok) {
+          const data = await meetingsRes.json();
+          const raw = data.meetings ?? data.data ?? [];
+          setMeetings(raw.map((m: any) => ({
+            id: m.id,
+            type: m.type ?? m.meetingType ?? 'Meeting',
+            caseReference: m.caseReference ?? m.referenceNumber ?? undefined,
+            date: m.date ?? m.scheduledAt ?? '—',
+            time: m.time ?? '—',
+            attendees: m.attendees ?? m.attendeeCount ?? 0,
+          })));
+        }
+      } catch (error) {
+        console.error('Failed to load collaboration data', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -200,25 +241,25 @@ function CollaborationHubContent() {
               <MetricCard
                 icon={FileText}
                 label="Active Cases"
-                value="24"
+                value={String(metrics?.activeCases ?? cases.length)}
                 subtext="Multi-agency involvement"
               />
               <MetricCard
                 icon={Building}
                 label="Partner Agencies"
-                value="12"
+                value={String(metrics?.partnerAgencies ?? agencies.length)}
                 subtext="With sharing agreements"
               />
               <MetricCard
                 icon={Calendar}
                 label="Meetings This Week"
-                value="8"
+                value={String(metrics?.meetingsThisWeek ?? meetings.length)}
                 subtext="TAC, TAF, Reviews"
               />
               <MetricCard
                 icon={MessageSquare}
                 label="Pending Actions"
-                value="15"
+                value={String(metrics?.pendingActions ?? 0)}
                 subtext="Awaiting response"
               />
             </div>
@@ -246,9 +287,19 @@ function CollaborationHubContent() {
               </div>
 
               <div className="divide-y divide-gray-200 dark:divide-gray-700">
-                {mockCases.map((case_) => (
-                  <CaseRow key={case_.id} case_={case_} />
-                ))}
+                {cases.length > 0 ? (
+                  cases.map((case_) => (
+                    <CaseRow key={case_.id} case_={case_} />
+                  ))
+                ) : (
+                  <div className="p-8">
+                    <EmptyState
+                      title="No active multi-agency cases"
+                      description="Cases with multi-agency involvement will appear here once created."
+                      className="bg-gray-50 dark:bg-gray-800/60 border-dashed"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </>
@@ -267,9 +318,19 @@ function CollaborationHubContent() {
             </div>
 
             <div className="divide-y divide-gray-200 dark:divide-gray-700">
-              {mockAgencies.map((agency) => (
-                <AgencyRow key={agency.id} agency={agency} />
-              ))}
+              {agencies.length > 0 ? (
+                agencies.map((agency) => (
+                  <AgencyRow key={agency.id} agency={agency} />
+                ))
+              ) : (
+                <div className="p-8">
+                  <EmptyState
+                    title="No partner agencies configured"
+                    description="Add partner agencies to enable multi-agency collaboration and information sharing."
+                    className="bg-gray-50 dark:bg-gray-800/60 border-dashed"
+                  />
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -277,48 +338,57 @@ function CollaborationHubContent() {
         {activeTab === 'meetings' && (
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Upcoming Meetings</h2>
-            <div className="space-y-4">
-              {[
-                { type: 'TAC', student: 'James Patterson', date: '2025-12-10', time: '10:00', attendees: 4 },
-                { type: 'Annual Review', student: 'Sophie Ahmed', date: '2025-12-12', time: '14:00', attendees: 6 },
-                { type: 'TAF', student: 'Oliver Smith', date: '2025-12-15', time: '09:30', attendees: 5 },
-              ].map((meeting, idx) => (
-                <div key={idx} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                  <div className="flex items-center gap-4">
-                    <div className="p-2 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg">
-                      <Calendar className="w-5 h-5 text-indigo-600" />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="font-semibold text-gray-900 dark:text-white">{meeting.type}</span>
-                        <span className="text-gray-500 dark:text-gray-400">-</span>
-                        <span className="text-gray-600 dark:text-gray-300">{meeting.student}</span>
+            {meetings.length > 0 ? (
+              <div className="space-y-4">
+                {meetings.map((meeting) => (
+                  <div key={meeting.id} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div className="flex items-center gap-4">
+                      <div className="p-2 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg">
+                        <Calendar className="w-5 h-5 text-indigo-600" />
                       </div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {meeting.date} at {meeting.time} - {meeting.attendees} attendees
-                      </p>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-semibold text-gray-900 dark:text-white">{meeting.type}</span>
+                          {meeting.caseReference && (
+                            <>
+                              <span className="text-gray-500 dark:text-gray-400">-</span>
+                              <span className="text-gray-600 dark:text-gray-300 text-sm font-mono">{meeting.caseReference}</span>
+                            </>
+                          )}
+                        </div>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          {meeting.date} at {meeting.time}
+                          {meeting.attendees > 0 && ` - ${meeting.attendees} attendees`}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button 
+                        aria-label="Start video call"
+                        title="Start video call"
+                        className="p-2 text-gray-400 hover:text-indigo-600 transition-colors"
+                      >
+                        <Video className="w-5 h-5" />
+                      </button>
+                      <button 
+                        aria-label="Share case"
+                        title="Share case"
+                        className="p-2 text-gray-400 hover:text-indigo-600 transition-colors"
+                      >
+                        <Share2 className="w-5 h-5" />
+                      </button>
+                      <ChevronRight className="w-5 h-5 text-gray-400" />
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <button 
-                      aria-label="Start video call"
-                      title="Start video call"
-                      className="p-2 text-gray-400 hover:text-indigo-600 transition-colors"
-                    >
-                      <Video className="w-5 h-5" />
-                    </button>
-                    <button 
-                      aria-label="Share case"
-                      title="Share case"
-                      className="p-2 text-gray-400 hover:text-indigo-600 transition-colors"
-                    >
-                      <Share2 className="w-5 h-5" />
-                    </button>
-                    <ChevronRight className="w-5 h-5 text-gray-400" />
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <EmptyState
+                title="No upcoming meetings scheduled"
+                description="Meetings associated with multi-agency cases will appear here."
+                className="bg-gray-50 dark:bg-gray-800/60 border-dashed"
+              />
+            )}
           </div>
         )}
       </main>
@@ -355,12 +425,15 @@ function CaseRow({ case_ }: { case_: Case }) {
     closed: 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300',
   };
 
+  // Show student name if available from the API; fall back to case reference
+  const displayLabel = case_.studentName || `Case ${case_.referenceNumber ?? case_.id}`;
+
   return (
     <div className="p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors cursor-pointer">
       <div className="flex items-center justify-between">
         <div>
           <div className="flex items-center gap-3 mb-2">
-            <h3 className="font-semibold text-gray-900 dark:text-white">{case_.studentName}</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white">{displayLabel}</h3>
             <span className={`text-xs px-2 py-1 rounded-full ${statusColors[case_.status]}`}>
               {case_.status.charAt(0).toUpperCase() + case_.status.slice(1)}
             </span>
@@ -389,7 +462,7 @@ function CaseRow({ case_ }: { case_: Case }) {
 }
 
 function AgencyRow({ agency }: { agency: Agency }) {
-  const config = agencyTypeConfig[agency.type];
+  const config = agencyTypeConfig[agency.type] ?? agencyTypeConfig.other;
 
   return (
     <div className="p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors cursor-pointer">
