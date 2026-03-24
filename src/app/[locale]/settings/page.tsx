@@ -329,23 +329,38 @@ export default function SettingsPage() {
 
                 <div className="p-4 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
                   <h3 className="font-medium text-slate-900 dark:text-white mb-2">Data Export</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
-                    You have the right to request a copy of all your personal data. Export requests are typically
-                    processed within 48 hours.
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                    Download a copy of all your personal data held on this platform — Article 15 GDPR right of access.
+                    The export includes your profile, cases, assessments, reports, interventions, and activity log.
                   </p>
-                  <button className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium transition-colors">
-                    Request Data Export
-                  </button>
+                  <a
+                    href="/api/user/data-export"
+                    download
+                    className="inline-block px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium transition-colors"
+                  >
+                    Download My Data
+                  </a>
+                </div>
+
+                <div className="p-4 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
+                  <h3 className="font-medium text-slate-900 dark:text-white mb-2">Audit Trail</h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                    View a full log of all activity in your organisation — who accessed what, when, and from where.
+                  </p>
+                  <Link href="/audit" className="inline-block px-4 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-sm font-medium transition-colors">
+                    View Audit Log
+                  </Link>
                 </div>
 
                 <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-                  <h3 className="font-medium text-red-800 dark:text-red-300 mb-2">Delete Account</h3>
-                  <p className="text-sm text-red-600 dark:text-red-400 mb-4">
-                    Permanently delete your account and all associated data. This action cannot be undone.
+                  <h3 className="font-medium text-red-800 dark:text-red-300 mb-2">Request Account Deletion</h3>
+                  <p className="text-sm text-red-600 dark:text-red-400 mb-3">
+                    To request deletion of your account and personal data under Article 17 GDPR, contact your Data Protection Officer at <strong>dpo@edpsychconnect.com</strong>. Deletion requests are processed within 30 days.
                   </p>
-                  <button className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium transition-colors">
-                    Request Account Deletion
-                  </button>
+                  <a href="mailto:dpo@edpsychconnect.com?subject=Data%20Deletion%20Request"
+                    className="inline-block px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium transition-colors">
+                    Contact DPO
+                  </a>
                 </div>
               </div>
             </div>
