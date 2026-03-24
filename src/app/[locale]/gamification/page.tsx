@@ -49,25 +49,45 @@ type GameMode = 'LOBBY' | 'BATTLE_ROYALE' | 'CODING_DOJO';
 
 export default function GamificationPage() {
   const [activeGame, setActiveGame] = useState<GameMode>('LOBBY');
-  const [userLevel, setUserLevel] = useState(12);
-  const [xpCurrent, setXpCurrent] = useState(2450);
-  const [xpNext, setXpNext] = useState(3000);
+  const [userLevel, setUserLevel] = useState<number | null>(null);
+  const [xpCurrent, setXpCurrent] = useState<number | null>(null);
+  const [xpNext, setXpNext] = useState<number | null>(null);
+  const [userRank, setUserRank] = useState<number | string>('-');
+  const [userXp, setUserXp] = useState<number | null>(null);
 
-  const [leaderboard, setLeaderboard] = useState<{ rank: number; name: string; xp: number }[]>([]);
+  const [leaderboard, setLeaderboard] = useState<{ rank: number; name: string; xp: number; isCurrentUser?: boolean }[]>([]);
 
-  // Load leaderboard from real API
+  // Load leaderboard and user stats from real API
   useEffect(() => {
+    // Fetch user points/level
+    fetch('/api/gamification?resource=points')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          setUserLevel(data.level ?? null);
+          setXpCurrent(data.progress?.current ?? data.xp ?? null);
+          setXpNext(data.progress?.required ?? null);
+          setUserXp(data.xp ?? null);
+        }
+      })
+      .catch(() => {
+        // API unavailable — leave null to show empty state
+      });
+
+    // Fetch leaderboard
     fetch('/api/gamification/leaderboard')
       .then(res => res.json())
       .then(data => {
         if (data.leaderboard && Array.isArray(data.leaderboard)) {
           setLeaderboard(
-            data.leaderboard.map((entry: { rank: number; name: string; points: number }) => ({
+            data.leaderboard.map((entry: { rank: number; name: string; xp: number; isCurrentUser?: boolean }) => ({
               rank: entry.rank,
               name: entry.name,
-              xp: entry.points,
+              xp: entry.xp,
+              isCurrentUser: entry.isCurrentUser,
             }))
           );
+          if (data.userRank) setUserRank(data.userRank);
         }
       })
       .catch(() => {
@@ -95,7 +115,7 @@ export default function GamificationPage() {
              <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/50">
                 <Gamepad2 className="w-3 h-3 mr-1" /> Battle Mode
              </Badge>
-             <span className="font-mono text-sm text-slate-400">Session ID: #BR-8821</span>
+             <span className="font-mono text-sm text-slate-400">Battle Royale Active</span>
           </div>
         </div>
         <div className="h-[calc(100vh-65px)]">
@@ -158,13 +178,24 @@ export default function GamificationPage() {
           <Card className="bg-slate-900/50 border-slate-700 w-full md:w-96 backdrop-blur-sm">
             <CardContent className="p-4">
               <div className="flex justify-between items-center mb-2">
-                <span className="text-sm font-semibold text-slate-300">Level {userLevel}</span>
-                <span className="text-xs font-mono text-purple-400">{xpCurrent} / {xpNext} XP</span>
+                <span className="text-sm font-semibold text-slate-300">
+                  {userLevel !== null ? `Level ${userLevel}` : 'Level —'}
+                </span>
+                <span className="text-xs font-mono text-purple-400">
+                  {xpCurrent !== null && xpNext !== null ? `${xpCurrent} / ${xpNext} XP` : '— XP'}
+                </span>
               </div>
-              <Progress value={(xpCurrent / xpNext) * 100} className="h-2 bg-slate-800" indicatorClassName="bg-gradient-to-r from-blue-500 to-purple-500" />
+              <Progress
+                value={xpCurrent !== null && xpNext && xpNext > 0 ? (xpCurrent / xpNext) * 100 : 0}
+                className="h-2 bg-slate-800"
+                indicatorClassName="bg-gradient-to-r from-blue-500 to-purple-500"
+              />
               <div className="flex justify-between mt-3 text-xs text-slate-500">
-                <span className="flex items-center"><Trophy className="w-3 h-3 mr-1 text-amber-500" /> Rank #42</span>
-                <span className="flex items-center"><Coins className="w-3 h-3 mr-1 text-yellow-400" /> 850 Tokens</span>
+                <span className="flex items-center">
+                  <Trophy className="w-3 h-3 mr-1 text-amber-500" />
+                  {userRank !== '-' ? `Rank #${userRank}` : 'Unranked'}
+                </span>
+                <span className="flex items-center"><Coins className="w-3 h-3 mr-1 text-yellow-400" /> Tokens</span>
               </div>
             </CardContent>
           </Card>
@@ -200,7 +231,7 @@ export default function GamificationPage() {
                         Compete against 99 other students in a trivia battle royale. Be the last mind standing.
                       </p>
                       <div className="flex gap-4 text-xs font-mono text-slate-500">
-                        <span className="flex items-center"><UsersIcon className="w-3 h-3 mr-1" /> 1.2k Online</span>
+                        <span className="flex items-center"><UsersIcon className="w-3 h-3 mr-1" /> Multiplayer</span>
                         <span className="flex items-center"><Target className="w-3 h-3 mr-1" /> PvP</span>
                       </div>
                     </div>
@@ -246,23 +277,8 @@ export default function GamificationPage() {
                <h3 className="text-lg font-bold mb-4 flex items-center">
                   <Target className="w-5 h-5 mr-2 text-green-500" /> Daily Quests
                </h3>
-               <div className="space-y-3">
-                  {[
-                     { title: "Debug 3 Functions", reward: "150 XP", progress: 66 },
-                     { title: "Win a Royale Match", reward: "500 XP", progress: 0 },
-                     { title: "Complete 'Data Types' Module", reward: "300 XP", progress: 100 }
-                  ].map((quest, i) => (
-                     <div key={i} className="flex items-center justify-between p-3 bg-slate-950/50 rounded-lg border border-slate-800/50 hover:border-slate-700 transition-colors">
-                        <div className="flex-1 mr-4">
-                           <div className="flex justify-between text-sm mb-1">
-                              <span className={quest.progress === 100 ? "text-slate-500 line-through" : "text-slate-200"}>{quest.title}</span>
-                              <span className="text-amber-400 text-xs font-mono">{quest.reward}</span>
-                           </div>
-                           <Progress value={quest.progress} className={`h-1.5 ${quest.progress === 100 ? "bg-green-900" : "bg-slate-800"}`}  indicatorClassName={quest.progress === 100 ? "bg-green-600" : "bg-blue-500"} />
-                        </div>
-                        {quest.progress === 100 && <Badge variant="outline" className="border-green-500 text-green-500 text-[10px]">DONE</Badge>}
-                     </div>
-                  ))}
+               <div className="text-center py-6 text-slate-500 text-sm">
+                 Daily quests coming soon — check back to earn XP rewards.
                </div>
             </div>
           </div>
@@ -304,22 +320,26 @@ export default function GamificationPage() {
                          </div>
                       ))}
                       
-                      {/* User Rank Placeholder */}
-                      <div className="mt-6 pt-4 border-t border-slate-800">
-                         <div className="flex items-center p-3 rounded-lg bg-blue-900/10 border border-blue-500/30">
+                      {/* User Rank — live data */}
+                      {userXp !== null && (
+                        <div className="mt-6 pt-4 border-t border-slate-800">
+                          <div className="flex items-center p-3 rounded-lg bg-blue-900/10 border border-blue-500/30">
                             <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold mr-3 text-xs">
-                               You
+                              You
                             </div>
                             <div className="flex-1">
-                               <div className="font-bold text-sm text-blue-200">Current Student</div>
-                               <div className="text-xs text-blue-400">Rank #42</div>
+                              <div className="font-bold text-sm text-blue-200">Your Score</div>
+                              <div className="text-xs text-blue-400">
+                                {userRank !== '-' ? `Rank #${userRank}` : 'Unranked'}
+                              </div>
                             </div>
                             <div className="text-right">
-                               <div className="font-mono text-sm text-blue-300 font-bold">2,450</div>
-                               <div className="text-[10px] text-blue-500">XP</div>
+                              <div className="font-mono text-sm text-blue-300 font-bold">{userXp.toLocaleString()}</div>
+                              <div className="text-[10px] text-blue-500">XP</div>
                             </div>
-                         </div>
-                      </div>
+                          </div>
+                        </div>
+                      )}
                    </div>
                    <Button className="w-full mt-6 bg-slate-800 hover:bg-slate-700 text-slate-300">
                       View Full Boards
