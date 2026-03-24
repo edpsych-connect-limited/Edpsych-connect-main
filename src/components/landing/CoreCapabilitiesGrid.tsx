@@ -91,10 +91,10 @@ const capabilities: Capability[] = [
   {
     icon: Layers,
     title: 'Differentiated Learning',
-    description: 'Lesson content differentiated across learning profiles — visual, auditory, kinesthetic, and cognitive load-adjusted. Designed so every child in a year group can access the same objective, their way.',
+    description: 'Interventions matched to learning profiles — visual, auditory, kinesthetic, and cognitive load-adjusted. Designed so every child in a year group can access the same objective, their way.',
     color: 'text-blue-400',
     bg: 'bg-blue-400/10',
-    href: '/demo/interventions',
+    href: '/interventions',
     tier: 'standard',
   },
   {
@@ -217,7 +217,7 @@ export default function CoreCapabilitiesGrid() {
             transition={{ delay: 0.2 }}
             className="text-xl text-slate-400 max-w-3xl mx-auto"
           >
-            Every capability below is live and in production — built from real EP practice, refined for real schools.
+            Every capability below is live on the platform — built from real EP practice, refined for real schools.
           </motion.p>
         </div>
 
