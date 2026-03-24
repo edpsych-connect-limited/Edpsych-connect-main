@@ -66,8 +66,8 @@ export default function CasesPage() {
         priority: c.priority,
         referral_date: c.referral_date,
         active_interventions: c._count?.interventions || 0,
-        sen_support: false, // Placeholder
-        ehcp: false, // Placeholder
+        sen_support: ['ehcp', 'sen_support', 'statutory_assessment'].includes(c.type?.toLowerCase()),
+        ehcp: c.type?.toLowerCase() === 'ehcp',
         updated_at: c.updated_at,
       }));
 

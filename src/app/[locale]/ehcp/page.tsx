@@ -20,8 +20,6 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Link } from '@/navigation';
 
-console.log('Rendering EHCP Page');
-
 import { useAuth } from '@/lib/auth/hooks';
 import { useDemo } from '@/components/demo/DemoProvider';
 import ErrorDisplay from '@/components/error-handling/ErrorDisplay';
