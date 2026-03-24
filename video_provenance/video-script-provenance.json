@@ -1284,32 +1284,32 @@
     "landing-platform-overview": {
       "key": "landing-platform-overview",
       "resolvedKey": "platform-introduction",
-      "sourceId": "world-class-marketing",
+      "sourceId": "landing-page-v2-2026-03-24",
       "title": "Welcome to EdPsych Connect World",
       "scriptSha256": "6d63e41457b1aa97d48a9fc2976b26b9efedf1ec6713a306b84cb91a8ea39946",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-03-24T10:52:45.255Z",
-      "castingNote": "Dr Scott Ighavongbe-Patrick — avatar d680604a31f34ce096c84bed708774c3, voice 50d2a2a531d049719a0debbf82e1cf4c. Landing page video generated 2026-03-24."
+      "generatedAt": "2026-03-24T12:05:27.677Z",
+      "castingNote": "Dr Scott I-Patrick — avatar d680604a, voice 7814e6a7 (Dr Scott Voice.m4a). Energetic marketing script v2, 2026-03-24."
     },
     "landing-ehcp-workflow": {
       "key": "landing-ehcp-workflow",
       "resolvedKey": "ehcp-application-journey",
-      "sourceId": "world-class-v4-core",
+      "sourceId": "landing-page-v2-2026-03-24",
       "title": "Your Education, Health and Care Plan Application Journey",
       "scriptSha256": "2e6d528fe85228579b0aacfbf01b114b63058bc98771e15ed54e9419ad9df5ec",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-03-24T10:52:45.255Z",
-      "castingNote": "Dr Scott Ighavongbe-Patrick — avatar d680604a31f34ce096c84bed708774c3, voice 50d2a2a531d049719a0debbf82e1cf4c. Landing page video generated 2026-03-24."
+      "generatedAt": "2026-03-24T12:05:27.677Z",
+      "castingNote": "Dr Scott I-Patrick — avatar d680604a, voice 7814e6a7 (Dr Scott Voice.m4a). Energetic marketing script v2, 2026-03-24."
     },
     "landing-intervention-engine": {
       "key": "landing-intervention-engine",
       "resolvedKey": "help-finding-interventions",
-      "sourceId": "world-class-v4-core",
+      "sourceId": "landing-page-v2-2026-03-24",
       "title": "Finding the Right Intervention",
       "scriptSha256": "adffabde863795161779b858b1e6e3b1d3a839a73c05d97d15d57c7062c32a3d",
       "verifiedAudioMatch": false,
-      "generatedAt": "2026-03-24T10:52:45.255Z",
-      "castingNote": "Dr Scott Ighavongbe-Patrick — avatar d680604a31f34ce096c84bed708774c3, voice 50d2a2a531d049719a0debbf82e1cf4c. Landing page video generated 2026-03-24."
+      "generatedAt": "2026-03-24T12:05:27.677Z",
+      "castingNote": "Dr Scott I-Patrick — avatar d680604a, voice 7814e6a7 (Dr Scott Voice.m4a). Energetic marketing script v2, 2026-03-24."
     },
     "ep-assessment-deep-dive": {
       "key": "ep-assessment-deep-dive",
