@@ -94,7 +94,7 @@ const capabilities: Capability[] = [
     description: 'Lesson content differentiated across learning profiles — visual, auditory, kinesthetic, and cognitive load-adjusted. Designed so every child in a year group can access the same objective, their way.',
     color: 'text-blue-400',
     bg: 'bg-blue-400/10',
-    href: '/demo/differentiation',
+    href: '/demo/interventions',
     tier: 'standard',
   },
   {

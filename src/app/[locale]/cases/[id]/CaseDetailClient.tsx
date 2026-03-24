@@ -65,58 +65,43 @@ export default function CaseDetailClient({ id }: CaseDetailClientProps) {
   useEffect(() => {
     const loadCase = async () => {
       try {
-        // In production, fetch from API
-        // Mock data for now
-        const mockCase: CaseDetail = {
-          id: parseInt(id),
-          student_name: 'Jamie Smith',
-          date_of_birth: '2015-03-15',
-          year_group: 'Year 3',
-          school: 'Riverside Primary School',
-          upn: 'A123456789012',
-          referral_date: '2025-09-15',
-          referral_reason:
-            'Concerns about reading progress and working memory. Jamie is making slow progress despite Quality First Teaching and additional interventions.',
-          presenting_concerns: [
-            'Reading fluency below age expectation',
-            'Working memory difficulties',
-            'Difficulty following multi-step instructions',
-          ],
-          case_type: 'Cognitive Assessment',
-          priority: 'high',
-          status: 'assessment',
-          sen_support: true,
+        const res = await fetch(`/api/cases/${id}`);
+        if (!res.ok) {
+          if (res.status === 404) {
+            setCaseDetail(null);
+            return;
+          }
+          throw new Error(`Failed to fetch case: ${res.status}`);
+        }
+        const data = await res.json();
+        const record = data.case;
+        // Map API response to CaseDetail shape
+        const studentName = record.students
+          ? `${record.students.first_name} ${record.students.last_name}`
+          : 'Unknown Student';
+        const mapped: CaseDetail = {
+          id: record.id,
+          student_name: studentName,
+          date_of_birth: record.students?.date_of_birth ?? '',
+          year_group: record.students?.year_group ?? '',
+          school: '',
+          upn: undefined,
+          referral_date: record.referral_date ?? record.created_at,
+          referral_reason: record.type ?? '',
+          presenting_concerns: [],
+          case_type: record.type ?? '',
+          priority: record.priority as CaseDetail['priority'],
+          status: record.status as CaseDetail['status'],
+          sen_support: false,
           ehcp: false,
-          medical_needs: 'Wears glasses for myopia. No other medical needs.',
-          relevant_history:
-            'Jamie attended nursery from age 3. Speech and language development was typical. Parents report no concerns about early development.',
-          strengths:
-            'Strong visual-spatial skills, excellent at building/construction tasks, creative, kind and helpful, good sense of humour, loves animals.',
-          consent_obtained: true,
-          consent_date: '2025-09-20',
+          consent_obtained: false,
           safeguarding_concerns: false,
-          metadata: {
-            // Sample data for demonstration - real data populated from database
-            parent_carers: [
-              { name: 'Sarah Smith', role: 'Mother', contact: 'parent@example.com', relationship: 'Parent' },
-            ],
-            school_staff: [
-              { name: 'Miss Johnson', role: 'Class Teacher', contact: 'teacher@school.edu', relationship: 'Class Teacher' },
-              { name: 'Mrs Williams', role: 'SENCO', contact: 'senco@school.edu', relationship: 'SENCO' },
-            ],
-          },
-          created_at: '2025-09-15T10:00:00Z',
-          updated_at: '2025-10-28T14:30:00Z',
-          notes: [
-            {
-              id: 1,
-              content: 'Initial consultation with class teacher completed.',
-              author: 'Dr Scott I-Patrick',
-              created_at: '2025-09-16T14:00:00Z'
-            }
-          ]
+          metadata: {},
+          created_at: record.created_at,
+          updated_at: record.updated_at,
+          notes: [],
         };
-        setCaseDetail(mockCase);
+        setCaseDetail(mapped);
       } catch (_error) {
         console.error('Failed to load case:', _error);
       } finally {

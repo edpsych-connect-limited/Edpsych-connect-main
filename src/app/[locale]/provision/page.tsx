@@ -8,11 +8,11 @@
  * Wave model provision tracking with cost analysis and impact measurement
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Layers, DollarSign, TrendingUp, Users,
   Plus, Search, Download, ChevronRight,
-  Target, Clock
+  Target, Clock, Loader2
 } from 'lucide-react';
 import { FeatureGate } from '@/components/subscription/FeatureGate';
 import { Feature } from '@/types/prisma-enums';
@@ -32,70 +32,6 @@ interface Provision {
   impactScore: number;
   status: 'active' | 'pending' | 'review';
 }
-
-// Mock data
-const mockProvisions: Provision[] = [
-  {
-    id: '1',
-    name: 'Quality First Teaching Strategies',
-    wave: 'universal',
-    description: 'Differentiated instruction, visual supports, and structured routines for all learners',
-    staffRequired: ['Class Teachers', 'TAs'],
-    cost: 0,
-    frequency: 'Daily',
-    studentsAssigned: 127,
-    impactScore: 85,
-    status: 'active',
-  },
-  {
-    id: '2',
-    name: 'Small Group Phonics Intervention',
-    wave: 'targeted',
-    description: 'Structured phonics programme for students working below age-related expectations',
-    staffRequired: ['HLTA', 'Intervention Lead'],
-    cost: 4500,
-    frequency: '3x weekly',
-    studentsAssigned: 24,
-    impactScore: 78,
-    status: 'active',
-  },
-  {
-    id: '3',
-    name: 'Speech & Language Therapy',
-    wave: 'specialist',
-    description: 'Individual SALT sessions for students with identified communication needs',
-    staffRequired: ['External SALT'],
-    cost: 12000,
-    frequency: 'Weekly',
-    studentsAssigned: 8,
-    impactScore: 92,
-    status: 'active',
-  },
-  {
-    id: '4',
-    name: 'Social Skills Group',
-    wave: 'targeted',
-    description: 'Structured social skills curriculum delivered in small group format',
-    staffRequired: ['Learning Mentor', 'ELSA'],
-    cost: 3200,
-    frequency: '2x weekly',
-    studentsAssigned: 12,
-    impactScore: 74,
-    status: 'active',
-  },
-  {
-    id: '5',
-    name: '1:1 EHCP Support',
-    wave: 'specialist',
-    description: 'Dedicated teaching assistant support as specified in EHCP',
-    staffRequired: ['1:1 TA'],
-    cost: 28000,
-    frequency: 'Full-time',
-    studentsAssigned: 6,
-    impactScore: 88,
-    status: 'active',
-  },
-];
 
 const waveConfig = {
   universal: {
@@ -127,17 +63,33 @@ const waveConfig = {
 function ProvisionMappingContent() {
   const [selectedWave, setSelectedWave] = useState<WaveLevel | 'all'>('all');
   const [viewMode, setViewMode] = useState<'list' | 'matrix'>('list');
+  const [provisions, setProvisions] = useState<Provision[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredProvisions = selectedWave === 'all' 
-    ? mockProvisions 
-    : mockProvisions.filter(p => p.wave === selectedWave);
+  useEffect(() => {
+    // No provision API exists yet — show empty state rather than mock data
+    setLoading(false);
+    setProvisions([]);
+  }, []);
 
-  const totalBudget = mockProvisions.reduce((sum, p) => sum + p.cost, 0);
+  const filteredProvisions = selectedWave === 'all'
+    ? provisions
+    : provisions.filter(p => p.wave === selectedWave);
+
+  const totalBudget = provisions.reduce((sum, p) => sum + p.cost, 0);
   const waveTotals = {
-    universal: mockProvisions.filter(p => p.wave === 'universal').reduce((sum, p) => sum + p.cost, 0),
-    targeted: mockProvisions.filter(p => p.wave === 'targeted').reduce((sum, p) => sum + p.cost, 0),
-    specialist: mockProvisions.filter(p => p.wave === 'specialist').reduce((sum, p) => sum + p.cost, 0),
+    universal: provisions.filter(p => p.wave === 'universal').reduce((sum, p) => sum + p.cost, 0),
+    targeted: provisions.filter(p => p.wave === 'targeted').reduce((sum, p) => sum + p.cost, 0),
+    specialist: provisions.filter(p => p.wave === 'specialist').reduce((sum, p) => sum + p.cost, 0),
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -214,7 +166,7 @@ function ProvisionMappingContent() {
                 <Layers className="w-5 h-5 text-green-600" />
               </div>
             </div>
-            <p className="text-2xl font-bold text-gray-900 dark:text-white mt-4">{mockProvisions.length}</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-white mt-4">{provisions.length}</p>
             <p className="text-sm text-gray-500 dark:text-gray-400">Active Provisions</p>
           </div>
 
@@ -245,8 +197,8 @@ function ProvisionMappingContent() {
           <div className="grid md:grid-cols-3 gap-6">
             {(['universal', 'targeted', 'specialist'] as WaveLevel[]).map((wave) => {
               const config = waveConfig[wave];
-              const provisions = mockProvisions.filter(p => p.wave === wave);
-              const students = provisions.reduce((sum, p) => sum + p.studentsAssigned, 0);
+              const waveProvisions = provisions.filter(p => p.wave === wave);
+              const students = waveProvisions.reduce((sum, p) => sum + p.studentsAssigned, 0);
               
               return (
                 <button
@@ -264,7 +216,7 @@ function ProvisionMappingContent() {
                   </div>
                   <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">{config.description}</p>
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-600 dark:text-gray-300">{provisions.length} provisions</span>
+                    <span className="text-gray-600 dark:text-gray-300">{waveProvisions.length} provisions</span>
                     <span className="text-gray-600 dark:text-gray-300">{students} students</span>
                     <span className="font-medium text-gray-900 dark:text-white">GBP {waveTotals[wave].toLocaleString()}</span>
                   </div>
@@ -295,9 +247,17 @@ function ProvisionMappingContent() {
           </div>
 
           <div className="divide-y divide-gray-200 dark:divide-gray-700">
-            {filteredProvisions.map((provision) => (
-              <ProvisionRow key={provision.id} provision={provision} />
-            ))}
+            {filteredProvisions.length > 0 ? (
+              filteredProvisions.map((provision) => (
+                <ProvisionRow key={provision.id} provision={provision} />
+              ))
+            ) : (
+              <div className="p-12 text-center text-gray-500 dark:text-gray-400">
+                <Layers className="w-12 h-12 mx-auto mb-4 opacity-40" />
+                <p className="font-medium">No provisions added yet</p>
+                <p className="text-sm mt-1">Use the &ldquo;Add Provision&rdquo; button to create your first provision mapping.</p>
+              </div>
+            )}
           </div>
         </div>
       </main>

@@ -7951,6 +7951,78 @@
           }
         }
       ]
+    },
+    "ep-assessment-deep-dive": {
+      "claims": [
+        {
+          "id": "ep-assessment-deep-dive-001",
+          "statement": "Key ep-assessment-deep-dive is present in the canonical HEYGEN_VIDEO_IDS registry for the EP assessment workflow.",
+          "status": "verified",
+          "lastReviewedAt": "2026-03-24T09:00:00.000Z",
+          "kind": "registry-key",
+          "expected": "present",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "ep-assessment-deep-dive"
+              }
+            ],
+            "notes": "EP assessment deep-dive video key. Aliased to onboard-ep-assessment-suite for script coverage."
+          }
+        }
+      ]
+    },
+    "ep-report-writing": {
+      "claims": [
+        {
+          "id": "ep-report-writing-001",
+          "statement": "Key ep-report-writing is present in the canonical HEYGEN_VIDEO_IDS registry for the EP report writing workflow.",
+          "status": "verified",
+          "lastReviewedAt": "2026-03-24T09:00:00.000Z",
+          "kind": "registry-key",
+          "expected": "present",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "ep-report-writing"
+              }
+            ],
+            "notes": "EP report writing video key. Aliased to onboard-ep-report-writing for script coverage."
+          }
+        }
+      ]
+    },
+    "la-compliance-analytics": {
+      "claims": [
+        {
+          "id": "la-compliance-analytics-001",
+          "statement": "Key la-compliance-analytics is present in the canonical HEYGEN_VIDEO_IDS registry for the LA compliance analytics feature.",
+          "status": "verified",
+          "lastReviewedAt": "2026-03-24T09:00:00.000Z",
+          "kind": "registry-key",
+          "expected": "present",
+          "evidence": {
+            "files": [
+              "src/lib/training/heygen-video-urls.ts"
+            ],
+            "codeSearch": [
+              {
+                "file": "src/lib/training/heygen-video-urls.ts",
+                "pattern": "la-compliance-analytics"
+              }
+            ],
+            "notes": "LA compliance analytics video key. Aliased to la-dashboard-overview for script coverage."
+          }
+        }
+      ]
     }
   }
 }

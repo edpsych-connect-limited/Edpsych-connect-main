@@ -153,6 +153,17 @@ const SCRIPT_ALIASES: Record<string, string> = {
   'marketing-studio-overview': 'platform-introduction',
   'sales-studio-overview': 'platform-introduction',
   'customer-success-studio-overview': 'platform-introduction',
+
+  // Landing page video carousel keys — PLACEHOLDER videos pending recording.
+  // Aliased to the nearest relevant existing script for script coverage.
+  'landing-platform-overview': 'platform-introduction',
+  'landing-ehcp-workflow': 'ehcp-application-journey',
+  'landing-intervention-engine': 'help-finding-interventions',
+
+  // EP and LA feature keys aliased to nearest equivalent
+  'ep-assessment-deep-dive': 'onboard-ep-assessment-suite',
+  'ep-report-writing': 'onboard-ep-report-writing',
+  'la-compliance-analytics': 'la-dashboard-overview',
 };
 
 function isScriptEntryLike(value: unknown): value is ScriptEntryLike {
