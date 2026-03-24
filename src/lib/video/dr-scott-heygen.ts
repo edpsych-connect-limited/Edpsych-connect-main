@@ -2,9 +2,13 @@
 // Truth-by-code: if we claim the video is presented by Dr Scott, the avatar + voice must match this allowlist.
 
 export const ALLOWED_DR_SCOTT_AVATAR_IDS = [
-  'd680604a31f34ce096c84bed708774c3',
-  '7517449dd67445d4842527a32758468d',
-  '5200bd0ca0a4485285d6061bfab66f18',
+  'd680604a31f34ce096c84bed708774c3', // Active — confirmed working 2026-03-24
+  '0d10345ca99840cdbd3103692ba55e27', // Active — confirmed in account 2026-03-24
+  'aae2fc783ee247cc9e09bd9517f74e5b', // Active — confirmed in account 2026-03-24
+  'e59986b15afc40c495e22ff1baece073', // Active — confirmed in account 2026-03-24
+  '1bc3385dd478439f8a36b9994c6644c6', // Active — confirmed in account 2026-03-24
+  '7517449dd67445d4842527a32758468d', // Legacy — may be unavailable
+  '5200bd0ca0a4485285d6061bfab66f18', // Legacy — may be unavailable
 ] as const;
 
 // IMPORTANT: This must match the currently approved Dr Scott voice ID.
