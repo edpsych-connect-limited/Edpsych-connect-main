@@ -193,17 +193,10 @@ export default function ParentDashboard() {
               <h2 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-indigo-600" /> Upcoming
               </h2>
-              <div className="space-y-4">
-                <div className="p-3 bg-indigo-50 rounded-lg border border-indigo-100">
-                  <div className="text-xs font-bold text-indigo-600 uppercase mb-1">Tomorrow, 10:00 AM</div>
-                  <div className="font-medium text-slate-900">EP Consultation</div>
-                  <div className="text-sm text-slate-600">Dr. Sarah Chen</div>
-                </div>
-                <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
-                  <div className="text-xs font-bold text-slate-500 uppercase mb-1">Jan 24, 2:00 PM</div>
-                  <div className="font-medium text-slate-900">Annual Review</div>
-                  <div className="text-sm text-slate-600">School Main Hall</div>
-                </div>
+              <div className="text-center py-6 text-slate-400 text-sm">
+                <Calendar className="w-8 h-8 mx-auto mb-2 opacity-40" />
+                <p>No upcoming appointments scheduled.</p>
+                <p className="text-xs mt-1">Appointments will appear here when arranged through the platform.</p>
               </div>
             </div>
 

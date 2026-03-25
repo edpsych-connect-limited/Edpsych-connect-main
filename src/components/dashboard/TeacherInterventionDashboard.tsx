@@ -20,8 +20,10 @@ import {
 } from 'lucide-react';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 
-const DEMO_PROFILE: StudentProfile = {
-  id: 'student_year4_alex',
+// Default profile used when no student is selected; drives the intervention library query
+// without referencing any real or fake pupil identity.
+const DEFAULT_PROFILE: StudentProfile = {
+  id: 'general_classroom',
   age_years: 9,
   presenting_needs: ['working_memory', 'following instructions', 'overwhelmed'],
   severity: 'medium',
@@ -51,7 +53,7 @@ export default function TeacherInterventionDashboard() {
           const { RecommendationEngine } = await import('@/lib/ai/recommendation-engine');
           if (!mounted) return;
           const engine = RecommendationEngine.getInstance();
-          const recs = engine.generateRecommendations(DEMO_PROFILE);
+          const recs = engine.generateRecommendations(DEFAULT_PROFILE);
           setRecommendations(recs);
         } catch (e) {
           console.error("AI Engine Error:", e);
@@ -82,13 +84,13 @@ export default function TeacherInterventionDashboard() {
   const handleLogImpact = async (interventionId: string, rating: 'positive' | 'neutral' | 'negative') => {
     const service = await loadImpactService();
     service.logImpact({
-      studentId: DEMO_PROFILE.id,
+      studentId: DEFAULT_PROFILE.id,
       interventionId,
       rating,
       notes: 'Logged via Teacher Dashboard'
     });
     // Refresh logs
-    setLogs(service.getStudentLogs(DEMO_PROFILE.id));
+    setLogs(service.getStudentLogs(DEFAULT_PROFILE.id));
     alert(`Impact logged: ${rating.toUpperCase()}`);
   };
 
@@ -126,7 +128,7 @@ export default function TeacherInterventionDashboard() {
               <Brain className="w-8 h-8 text-indigo-600" />
               <h1 className="text-2xl font-bold text-slate-900">EdPsych Connect | Teacher Dashboard</h1>
             </div>
-            <p className="text-slate-600">AI-Powered Intervention Management for <span className="font-semibold">Alex (Year 4)</span></p>
+            <p className="text-slate-600">AI-Powered Intervention Management — Classroom Strategy Library</p>
           </div>
           <div className="flex flex-col items-end">
              <button 
@@ -144,7 +146,7 @@ export default function TeacherInterventionDashboard() {
               <Activity className="w-3 h-3 mr-1" />
               Live Clinical Library (440+ Strategies)
             </span>
-             <span className="text-xs text-slate-400 mt-1">Demo Student Profile | Real AI Logic</span>
+             <span className="text-xs text-slate-400 mt-1">Evidence-based strategies | AI-matched recommendations</span>
           </div>
         </div>
       </header>
@@ -154,7 +156,7 @@ export default function TeacherInterventionDashboard() {
         <div className="mb-6 animate-in slide-in-from-top-4 duration-300">
           <VoiceCommandInterface 
             contextType="dashboard"
-            initialQuery="Show strategies for Alex"
+            initialQuery="Show classroom intervention strategies"
             onCommandExecuted={handleVoiceResult}
             className="border-2 border-indigo-100 shadow-lg"
           />
@@ -166,26 +168,28 @@ export default function TeacherInterventionDashboard() {
         <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
             <div className="flex items-center space-x-2 text-slate-500 mb-1">
                 <Activity className="w-4 h-4" />
-                <span className="text-sm font-medium">Active Needs</span>
+                <span className="text-sm font-medium">Strategy Areas</span>
             </div>
-            <div className="text-2xl font-bold text-slate-800">3</div>
-            <div className="text-xs text-amber-600 mt-1">Working Memory (High Priority)</div>
+            <div className="text-2xl font-bold text-slate-800">{recommendations.length > 0 ? recommendations.length : '—'}</div>
+            <div className="text-xs text-amber-600 mt-1">Matched to selected needs profile</div>
         </div>
         <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
              <div className="flex items-center space-x-2 text-slate-500 mb-1">
                 <TrendingUp className="w-4 h-4" />
-                <span className="text-sm font-medium">Intervention Impact</span>
+                <span className="text-sm font-medium">Evidence Base</span>
             </div>
-            <div className="text-2xl font-bold text-slate-800">+7 mo</div>
-            <div className="text-xs text-green-600 mt-1">Projected progress vs baseline</div>
+            <div className="text-2xl font-bold text-slate-800">440+</div>
+            <div className="text-xs text-green-600 mt-1">Research-backed strategies</div>
         </div>
         <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
              <div className="flex items-center space-x-2 text-slate-500 mb-1">
                 <CheckCircle className="w-4 h-4" />
-                <span className="text-sm font-medium">Fidelity Score</span>
+                <span className="text-sm font-medium">Top Match Score</span>
             </div>
-            <div className="text-2xl font-bold text-slate-800">92%</div>
-            <div className="text-xs text-slate-500 mt-1">Adherence to best practice</div>
+            <div className="text-2xl font-bold text-slate-800">
+              {recommendations.length > 0 ? `${Math.round(recommendations[0].confidence_score)}%` : '—'}
+            </div>
+            <div className="text-xs text-slate-500 mt-1">Best fit for selected profile</div>
         </div>
       </div>
 
@@ -219,7 +223,7 @@ export default function TeacherInterventionDashboard() {
                             <Brain className="w-5 h-5 flex-shrink-0 mt-0.5" />
                             <div>
                                 <h3 className="font-semibold">AI Insight</h3>
-                                <p className="text-sm opacity-90">Based on Alex's profile, we detected a potential <strong>Working Memory Overload</strong>. The following interventions are recommended with high confidence.</p>
+                                <p className="text-sm opacity-90">Based on the selected needs profile, we detected a potential <strong>Working Memory Overload</strong> pattern. The following interventions are recommended with high confidence.</p>
                             </div>
                         </div>
 
