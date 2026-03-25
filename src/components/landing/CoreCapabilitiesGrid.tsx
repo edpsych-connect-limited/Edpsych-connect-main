@@ -163,7 +163,7 @@ const capabilities: Capability[] = [
   {
     icon: Building2,
     title: 'LA Dashboard & SEN2 Returns',
-    description: 'Local Authority oversight of statutory timelines across all schools. SEN2 returns generated automatically from live case data. No more spreadsheet reconciliation.',
+    description: 'Local Authority oversight of statutory timelines across all schools. SEN2 return generator built to DfE specification — exports compliant CSV from EHCP records. Statutory timeline tracking included.',
     color: 'text-indigo-300',
     bg: 'bg-indigo-300/10',
     href: '/la/dashboard',
@@ -217,7 +217,7 @@ export default function CoreCapabilitiesGrid() {
             transition={{ delay: 0.2 }}
             className="text-xl text-slate-400 max-w-3xl mx-auto"
           >
-            Every capability below is live on the platform — built from real EP practice, refined for real schools.
+            Core capabilities built from real EP practice and refined for real schools. Live features are marked by tier — a small number of advanced modules are in final development.
           </motion.p>
         </div>
 
