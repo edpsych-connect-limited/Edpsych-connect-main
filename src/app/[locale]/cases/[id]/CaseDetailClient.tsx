@@ -51,7 +51,7 @@ interface Note {
 
 export default function CaseDetailClient({ id }: CaseDetailClientProps) {
   const router = useRouter();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const { startTour } = useDemo();
 
   const [caseDetail, setCaseDetail] = useState<CaseDetail | null>(null);
@@ -126,7 +126,7 @@ export default function CaseDetailClient({ id }: CaseDetailClientProps) {
       const newNote: Note = {
         id: Date.now(),
         content,
-        author: 'Current User', // In real app, get from session
+        author: user?.name || user?.email || 'Unknown User',
         created_at: new Date().toISOString(),
       };
       setCaseDetail({
