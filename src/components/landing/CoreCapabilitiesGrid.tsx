@@ -90,8 +90,8 @@ const capabilities: Capability[] = [
   },
   {
     icon: Layers,
-    title: 'Differentiated Learning',
-    description: 'Interventions matched to learning profiles — visual, auditory, kinesthetic, and cognitive load-adjusted. Designed so every child in a year group can access the same objective, their way.',
+    title: 'Differentiated Support',
+    description: 'Provision mapped to individual need. Interventions are linked to assessment findings and assigned by complexity — Universal, Targeted, or Specialist. Teachers and SENCOs see only what is relevant to their pupils, ensuring support is precise and achievable.',
     color: 'text-blue-400',
     bg: 'bg-blue-400/10',
     href: '/interventions',
