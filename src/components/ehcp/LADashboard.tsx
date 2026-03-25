@@ -385,7 +385,7 @@ export default function LAEHCPDashboard() {
             <VoiceCommandInterface
               contextType="la-dashboard"
               onCommandExecuted={(result) => {
-                console.log('LA Command executed:', result);
+                // command executed;
                 if (result.actions?.some((a: any) => a.type === 'compliance' || a.type === 'funding')) {
                   fetchDashboard();
                 }

@@ -51,14 +51,13 @@ export const OperationalIntelligenceDashboard: React.FC = () => {
   const [predictions, setPredictions] = React.useState<{ metric: string; forecast: string }[]>([]);
 
   React.useEffect(() => {
-    const interval = setInterval(() => {
-      setPredictions([
-        { metric: 'System Load', forecast: `${(Math.random() * 80 + 20).toFixed(1)}%` },
-        { metric: 'AI Model Drift', forecast: `${(Math.random() * 5).toFixed(2)}%` },
-        { metric: 'Compliance Risk', forecast: `${(Math.random() * 2).toFixed(2)}%` },
-      ]);
-    }, 5000);
-    return () => clearInterval(interval);
+    // Fetch real predictive metrics from API when available
+    // Placeholder stable values until analytics API is connected
+    setPredictions([
+      { metric: 'System Load', forecast: 'Monitoring' },
+      { metric: 'AI Model Drift', forecast: 'Stable' },
+      { metric: 'Compliance Risk', forecast: 'Low' },
+    ]);
   }, []);
 
   return (

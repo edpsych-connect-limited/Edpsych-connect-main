@@ -35,7 +35,7 @@ export default function DigitSpanPage() {
       const data = await response.json();
       setIsComplete(true);
       toast.success('Assessment complete! Profile updated via AI Orchestration.');
-      console.log('Orchestration Result:', data);
+      // orchestration result;
     } catch (error) {
       console.error('Submission error:', error);
       toast.error('Failed to save results. Please try again.');

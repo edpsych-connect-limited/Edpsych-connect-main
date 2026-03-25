@@ -32,12 +32,16 @@ export default function LiveEHCPEditor({ initialOutcomes, onClose, onSave }: Omi
   const [isConnected, setIsConnected] = useState(true);
   const [lastSaved, setLastSaved] = useState<Date>(new Date());
 
-  // Simulate real-time connection
+  // Set connected status based on actual network state
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIsConnected(prev => !prev ? true : Math.random() > 0.05); // 95% uptime simulation
-    }, 5000);
-    return () => clearInterval(interval);
+    const update = () => setIsConnected(navigator.onLine);
+    update();
+    window.addEventListener('online', update);
+    window.addEventListener('offline', update);
+    return () => {
+      window.removeEventListener('online', update);
+      window.removeEventListener('offline', update);
+    };
   }, []);
 
   const handleUpdateOutcome = (id: string, newText: string) => {
@@ -171,7 +175,7 @@ export default function LiveEHCPEditor({ initialOutcomes, onClose, onSave }: Omi
           {/* Add New Outcome */}
           <button
             onClick={() => {
-              const newId = Math.random().toString(36).substr(2, 9);
+              const newId = `outcome-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
               setOutcomes([...outcomes, {
                 id: newId,
                 description: "New outcome...",

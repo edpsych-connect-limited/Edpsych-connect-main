@@ -153,7 +153,7 @@ export function CommunicationThreadComponent({
     const markMessagesAsRead = async () => {
         // In production: POST to mark-as-read endpoint
         // For now we just log, as the Service handles this via `getThread` side-effects optionally
-        console.log('Marking messages as read');
+        // messages marked read;
     };
 
     const loadThread = async () => {

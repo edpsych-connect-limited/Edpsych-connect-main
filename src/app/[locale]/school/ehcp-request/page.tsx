@@ -46,7 +46,7 @@ export default function EHCPRequestPage() {
   
   const handleSaveDraft = async () => {
     // Show draft saved notification
-    console.log('Draft saved');
+    // draft saved;
   };
   
   return (

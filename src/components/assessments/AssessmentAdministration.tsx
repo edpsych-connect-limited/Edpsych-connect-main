@@ -15,6 +15,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/lib/auth/hooks';
 import {
   AssessmentTemplate,
   AssessmentSection as _AssessmentSection,
@@ -68,6 +69,7 @@ export default function AssessmentAdministration({
   existingInstanceId,
 }: AssessmentAdministrationProps) {
   const router = useRouter();
+  const { user } = useAuth();
 
   // State
   const [template, setTemplate] = useState<AssessmentTemplate | null>(null);
@@ -192,7 +194,7 @@ export default function AssessmentAdministration({
       const instanceData: Partial<AssessmentInstance> = {
         student_id: studentId,
         assessment_template_id: template.id,
-        assessor_id: 'current_user', // TODO: Get from session
+        assessor_id: user?.id || 'unknown',
         started_at: startTime?.toISOString() || new Date().toISOString(),
         status,
         responses: Array.from(responses.values()),

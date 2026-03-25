@@ -120,7 +120,7 @@ export default function InterventionLibrary({
         }));
 
         setInterventions(transformed);
-        console.log(`Loaded ${transformed.length} evidence-based interventions`);
+        // interventions loaded;
       } catch (error) {
         console.error('Failed to load intervention library:', error);
         setInterventions([]);

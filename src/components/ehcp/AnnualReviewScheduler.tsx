@@ -898,7 +898,7 @@ export default function AnnualReviewScheduler() {
                 ]}
                 onClose={() => setActiveLiveSession(null)}
                 onSave={(outcomes) => {
-                  console.log('Saved outcomes:', outcomes);
+                  // outcomes saved;
                   setActiveLiveSession(null);
                 }}
               />

@@ -1,6 +1,7 @@
 'use client';
 
 import { logger } from "@/lib/logger";
+import { useAuth } from '@/lib/auth/hooks';
 /**
  * Assessment Administration Wizard
  * EP-Controlled Assessment Workflow for Evidence-Based Frameworks (ECCA, ECCP, etc.)
@@ -56,6 +57,7 @@ export default function AssessmentAdministrationWizard({
 }: AssessmentWizardProps) {
   const router = useRouter();
   const { startTour } = useDemo();
+  const { user } = useAuth();
   
   // State management
   const [framework, setFramework] = useState<any>(null);
@@ -326,7 +328,7 @@ export default function AssessmentAdministrationWizard({
         // Assessment Details
         assessment_name: framework.name,
         assessment_date: new Date().toLocaleDateString('en-GB'),
-        assessor_name: 'Educational Psychologist', // TODO: Get from auth context
+        assessor_name: user?.name || 'Educational Psychologist',
         assessor_qualification: 'CPsychol, AFBPsS, HCPC Registered',
 
         // Assessment Data

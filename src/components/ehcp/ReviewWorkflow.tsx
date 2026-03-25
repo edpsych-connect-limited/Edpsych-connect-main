@@ -14,6 +14,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/lib/auth/hooks';
 
 // ============================================================================
 // TYPES
@@ -123,6 +124,7 @@ export default function ReviewWorkflow({
   nextReviewDate,
 }: ReviewWorkflowProps) {
   const router = useRouter();
+  const { user } = useAuth();
 
   // State
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -208,7 +210,7 @@ export default function ReviewWorkflow({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...newAmendment,
-          requested_by: 'current_user', // TODO: Get from session
+          requested_by: user?.id || 'unknown',
           request_date: new Date().toISOString(),
         }),
       });
