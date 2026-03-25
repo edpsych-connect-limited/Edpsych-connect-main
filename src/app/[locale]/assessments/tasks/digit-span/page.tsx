@@ -6,12 +6,18 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'react-hot-toast';
+import { useSession } from 'next-auth/react';
 
 export default function DigitSpanPage() {
+  const { data: session } = useSession();
   const [_isSubmitting, setIsSubmitting] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
 
   const handleComplete = async (result: any) => {
+    if (!session?.user?.id) {
+      toast.error('You must be logged in to submit assessment results.');
+      return;
+    }
     setIsSubmitting(true);
     try {
       const response = await fetch('/api/assessments/submit', {
@@ -20,7 +26,7 @@ export default function DigitSpanPage() {
         body: JSON.stringify({
           taskType: 'digit-span',
           result,
-          studentId: 1 // Demo ID
+          studentId: parseInt(session.user.id)
         })
       });
 
@@ -71,8 +77,8 @@ export default function DigitSpanPage() {
                 Results have been analyzed by the AI Orchestration Engine and the student profile has been updated.
               </p>
               <div className="pt-4">
-                <Link href="/dashboard/student/1">
-                  <Button>View Updated Profile</Button>
+                <Link href="/assessments">
+                  <Button>Back to Assessments</Button>
                 </Link>
               </div>
             </div>
