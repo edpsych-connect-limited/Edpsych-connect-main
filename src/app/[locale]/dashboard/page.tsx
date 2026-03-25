@@ -12,10 +12,16 @@ import { useAuth } from '@/lib/auth/hooks';
 import { useRouter } from '@/navigation';
 import { useEffect, useState } from 'react';
 import { Link } from '@/navigation';
-import { FileText, LayoutDashboard, Bot, PlayCircle } from 'lucide-react';
+import { FileText, LayoutDashboard, Bot, PlayCircle, Clock } from 'lucide-react';
 import { useDemo } from '@/components/demo/DemoProvider';
 import { StreamingAvatar } from '@/components/features/StreamingAvatar';
 import { resolveRoleProfile } from '@/lib/navigation/role-journeys';
+
+interface RecentActivityItem {
+  id: string;
+  label: string;
+  timestamp: string;
+}
 
 export default function DashboardPage() {
   const { user, isLoading } = useAuth();
@@ -23,6 +29,8 @@ export default function DashboardPage() {
   const router = useRouter();
   const [showAvatar, setShowAvatar] = useState(false);
   const [showAllTools, setShowAllTools] = useState(false);
+  const [recentActivity, setRecentActivity] = useState<RecentActivityItem[]>([]);
+  const [activityLoading, setActivityLoading] = useState(true);
 
   useEffect(() => {
     const checkAuthAndOnboarding = async () => {
@@ -79,6 +87,26 @@ export default function DashboardPage() {
 
     checkAuthAndOnboarding();
   }, [user, isLoading, router, startTour]);
+
+  useEffect(() => {
+    if (!user) return;
+    setActivityLoading(true);
+    fetch('/api/cases?limit=3&sort=updatedAt&order=desc')
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (data?.success && Array.isArray(data.data)) {
+          setRecentActivity(
+            data.data.slice(0, 3).map((c: { id: string; title?: string; createdAt?: string; updatedAt?: string }) => ({
+              id: c.id,
+              label: c.title || 'Case updated',
+              timestamp: c.updatedAt || c.createdAt || '',
+            }))
+          );
+        }
+      })
+      .catch(() => {/* silent – empty state shown */})
+      .finally(() => setActivityLoading(false));
+  }, [user]);
 
   if (isLoading || !user) {
     return (
@@ -273,22 +301,36 @@ export default function DashboardPage() {
           <div className="lg:col-span-1">
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h2>
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6" data-tour="recent-activity">
-              <div className="space-y-6">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="flex items-start gap-4">
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0">
-                      <FileText className="w-4 h-4 text-gray-500" />
+              {activityLoading ? (
+                <div className="flex items-center justify-center py-8">
+                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600" aria-hidden="true"></div>
+                </div>
+              ) : recentActivity.length > 0 ? (
+                <div className="space-y-6">
+                  {recentActivity.map((item) => (
+                    <div key={item.id} className="flex items-start gap-4">
+                      <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0">
+                        <FileText className="w-4 h-4 text-gray-500" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">{item.label}</p>
+                        <p className="text-xs text-gray-500">
+                          {item.timestamp ? new Date(item.timestamp).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : 'Recently updated'}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm font-medium text-gray-900">Assessment Report Generated</p>
-                      <p className="text-xs text-gray-500">2 hours ago - Student #{100 + i}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <button className="w-full mt-6 py-2 text-sm text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
-                View All Activity
-              </button>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center py-8 text-center">
+                  <Clock className="w-8 h-8 text-gray-300 mb-2" />
+                  <p className="text-sm text-gray-500">No recent activity yet</p>
+                  <p className="text-xs text-gray-400 mt-1">Activity will appear here as you use the platform</p>
+                </div>
+              )}
+              <Link href="/cases" className="block w-full mt-6 py-2 text-sm text-center text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                View All Cases
+              </Link>
             </div>
           </div>
         </div>
