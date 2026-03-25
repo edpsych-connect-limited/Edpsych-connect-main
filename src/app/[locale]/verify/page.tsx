@@ -30,28 +30,35 @@ export default function VerifyPage() {
     setLoading(true);
     setResult(null);
 
-    // Simulate verification API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch(`/api/training/certificates/verify?code=${encodeURIComponent(code.trim().toUpperCase())}`);
+      const data = await response.json();
 
-    // Mock verification logic - in production this would call an API
-    if (code.toUpperCase().startsWith('EPSC-') && code.length === 16) {
-      setResult({
-        valid: true,
-        certificate: {
-          holderName: 'Certificate Holder',
-          courseName: 'SEND Fundamentals for Educators',
-          issueDate: '2024-12-01',
-          cpdHours: 15,
-        }
-      });
-    } else {
+      if (response.ok && data.valid && data.certificate) {
+        setResult({
+          valid: true,
+          certificate: {
+            holderName: data.certificate.holderName,
+            courseName: data.certificate.courseName,
+            issueDate: data.certificate.issueDate,
+            expiryDate: data.certificate.expiryDate,
+            cpdHours: data.certificate.cpdHours,
+          },
+        });
+      } else {
+        setResult({
+          valid: false,
+          error: data.error ?? 'Certificate not found. Please check the verification code and try again.',
+        });
+      }
+    } catch {
       setResult({
         valid: false,
-        error: 'Certificate not found. Please check the verification code and try again.'
+        error: 'Verification service unavailable. Please try again later.',
       });
+    } finally {
+      setLoading(false);
     }
-    
-    setLoading(false);
   };
 
   return (
