@@ -1,24 +1,28 @@
+'use client';
+
 import React from 'react';
+import { useAuth } from '@/lib/auth/hooks';
+import { useRouter } from 'next/navigation';
 import StudentDashboardWrapper from '@/components/demo/StudentDashboardWrapper';
 import { PersonalTutor } from '@/components/student/PersonalTutor';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
-import { redirect } from 'next/navigation';
 
-export default async function StudentPage() {
-  const session = await getServerSession(authOptions);
+export default function StudentPage() {
+  const { user, isLoading } = useAuth();
+  const router = useRouter();
 
-  if (!session?.user?.id) {
-    redirect('/login?callbackUrl=/student');
-  }
+  React.useEffect(() => {
+    if (!isLoading && !user) {
+      router.push('/login?callbackUrl=/student');
+    }
+  }, [user, isLoading, router]);
 
-  const studentId = parseInt(session.user.id);
+  if (isLoading || !user) return null;
+
+  const studentId = parseInt(user.id);
 
   return (
     <div className="space-y-6 relative min-h-screen">
-      <StudentDashboardWrapper 
-        demoStudentId={studentId} 
-      />
+      <StudentDashboardWrapper demoStudentId={studentId} />
       <PersonalTutor />
     </div>
   );
