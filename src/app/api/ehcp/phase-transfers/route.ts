@@ -178,7 +178,7 @@ export async function POST(request: NextRequest) {
 
     const phaseTransfer = await prisma.phaseTransfer.create({
       data: {
-        la_tenant: { connect: { id: session.tenant_id! } },
+        la_tenant_id: session.tenant_id!,
         child_name,
         child_id,
         date_of_birth: date_of_birth ? new Date(date_of_birth) : new Date(),

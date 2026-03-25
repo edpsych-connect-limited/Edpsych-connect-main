@@ -174,7 +174,7 @@ export async function POST(request: NextRequest) {
 
     const annualReview = await prisma.annualReview.create({
       data: {
-        la_tenant: { connect: { id: session.tenant_id! } },
+        la_tenant_id: session.tenant_id!,
         ehcpId: ehcp_id,
         child_id,
         child_name,

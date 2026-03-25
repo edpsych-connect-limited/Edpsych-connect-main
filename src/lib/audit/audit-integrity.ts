@@ -9,7 +9,7 @@
  * differ slightly.
  */
 
-import crypto from 'crypto';
+import * as crypto from 'crypto';
 import { logger } from '@/lib/logger';
 import type { DbClient } from '@/lib/prisma';
 import { isProductionEnv, requireEnv } from '@/lib/env/production-env';

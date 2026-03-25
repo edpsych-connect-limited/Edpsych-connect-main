@@ -12,7 +12,7 @@ import { nanoid } from 'nanoid';
 import { NextRequest } from 'next/server';
 import { redirect } from 'next/navigation';
 import prisma from '@/lib/prismaSafe';
-import bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcryptjs';
 import { CanonicalSession, normalizeRole, normalizeTenantId, toCanonicalSession } from './types';
 
 // Types

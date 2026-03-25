@@ -7,7 +7,7 @@ import { logger } from "@/lib/logger";
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-import nodemailer from 'nodemailer';
+import * as nodemailer from 'nodemailer';
 
 interface EmailOptions {
   to: string;

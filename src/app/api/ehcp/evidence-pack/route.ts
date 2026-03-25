@@ -55,10 +55,10 @@ export async function GET(request: NextRequest) {
 
     const authResult = await authorizeRequest(request, Permission.VIEW_EHCP);
     if (!authResult.success) {
-      return authResult.response;
+      return (authResult as { success: false; response: import('next/server').NextResponse }).response;
     }
 
-    const { user } = authResult.session;
+    const { user } = (authResult as { success: true; session: { user: { id: string; email: string; role: string; name?: string; tenant_id?: number } } }).session;
 
     const { searchParams } = new URL(request.url);
     const parsed = QuerySchema.safeParse({

@@ -442,10 +442,10 @@ export function withAuth(
     const authResult = await authenticateRequest(request);
 
     if (!authResult.success) {
-      return authResult.response;
+      return (authResult as { success: false; response: NextResponse }).response;
     }
 
-    return handler(request, authResult.session);
+    return handler(request, (authResult as { success: true; session: any }).session);
   };
 }
 
@@ -460,9 +460,9 @@ export function withPermission(
     const authResult = await authorizeRequest(request, requiredPermission);
 
     if (!authResult.success) {
-      return authResult.response;
+      return (authResult as { success: false; response: NextResponse }).response;
     }
 
-    return handler(request, authResult.session);
+    return handler(request, (authResult as { success: true; session: any }).session);
   };
 }

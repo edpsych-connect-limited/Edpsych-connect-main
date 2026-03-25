@@ -164,7 +164,7 @@ export async function POST(request: NextRequest) {
 
     const tribunalCase = await prisma.tribunalCase.create({
       data: {
-        la_tenant: { connect: { id: session.tenant_id! } },
+        la_tenant_id: session.tenant_id!,
         tribunal_reference,
         sendist_reference: sendist_reference || null,
         child_name,

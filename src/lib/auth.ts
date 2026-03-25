@@ -16,7 +16,7 @@ import { emailService } from "@/lib/email/email-service";
 // FIXED: Removed broken database import, fixed Redis path
 // import { getPostgresClient, userDb } from '../../database/postgres'; // REMOVED - doesn't exist
 import { getRedisClient } from '../cache/redis-client';
-import bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcryptjs';
 import { v4 as uuidv4 } from 'uuid';
 import { getServerSession } from 'next-auth';
 import { PrismaAdapter as _PrismaAdapter } from '@next-auth/prisma-adapter';
