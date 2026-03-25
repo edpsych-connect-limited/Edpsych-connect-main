@@ -999,8 +999,8 @@ export class SENCODashboardService {
   }
 
   private calculateEngagementScore(_student: unknown): number {
-    // Simple engagement scoring
-    return Math.floor(Math.random() * 50); // Placeholder - would calculate from actual engagement data
+    // Returns 0 until real engagement data (portal logins, parent contacts) is available
+    return 0;
   }
 
   private async getWeeklyActivity(schoolId: string): Promise<DashboardMetrics['weeklyActivity']> {
@@ -1082,12 +1082,12 @@ export class SENCODashboardService {
       });
     }
 
-    // Placeholder - would calculate actual trends
+    // Returns zero-value trends until real historical data queries are implemented
     return {
-      newIdentifications: months.map(m => ({ ...m, value: Math.floor(Math.random() * 10) })),
-      ehcpApplications: months.map(m => ({ ...m, value: Math.floor(Math.random() * 5) })),
-      graduations: months.map(m => ({ ...m, value: Math.floor(Math.random() * 3) })),
-      progressImprovement: months.map(m => ({ ...m, value: Math.floor(Math.random() * 100) }))
+      newIdentifications: months.map(m => ({ ...m, value: 0 })),
+      ehcpApplications: months.map(m => ({ ...m, value: 0 })),
+      graduations: months.map(m => ({ ...m, value: 0 })),
+      progressImprovement: months.map(m => ({ ...m, value: 0 }))
     };
   }
 
