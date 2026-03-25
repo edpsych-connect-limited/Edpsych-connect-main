@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * Resource Library API Routes
  * 
@@ -14,8 +15,8 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
+
 import { createResourceLibraryService } from '@/lib/resources/resource-library.service';
 import { logger } from '@/lib/logger';
 
@@ -26,17 +27,17 @@ import { logger } from '@/lib/logger';
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json(
         { error: 'Unauthorised' },
         { status: 401 }
       );
     }
 
-    const tenantId = (session.user as { tenantId?: number }).tenantId || 1;
-    const userId = parseInt((session.user as { id?: string }).id || '0');
+    const tenantId = (session as { tenantId?: number }).tenantId || 1;
+    const userId = parseInt((session as { id?: string }).id || '0');
     const service = createResourceLibraryService(tenantId);
     
     const { searchParams } = new URL(request.url);
@@ -214,17 +215,17 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json(
         { error: 'Unauthorised' },
         { status: 401 }
       );
     }
 
-    const tenantId = (session.user as { tenantId?: number }).tenantId || 1;
-    const userId = parseInt((session.user as { id?: string }).id || '0');
+    const tenantId = (session as { tenantId?: number }).tenantId || 1;
+    const userId = parseInt((session as { id?: string }).id || '0');
     const service = createResourceLibraryService(tenantId);
     
     const body = await request.json();
@@ -334,17 +335,17 @@ export async function POST(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json(
         { error: 'Unauthorised' },
         { status: 401 }
       );
     }
 
-    const tenantId = (session.user as { tenantId?: number }).tenantId || 1;
-    const userId = parseInt((session.user as { id?: string }).id || '0');
+    const tenantId = (session as { tenantId?: number }).tenantId || 1;
+    const userId = parseInt((session as { id?: string }).id || '0');
     const service = createResourceLibraryService(tenantId);
     
     const body = await request.json();
@@ -391,16 +392,16 @@ export async function PUT(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json(
         { error: 'Unauthorised' },
         { status: 401 }
       );
     }
 
-    const tenantId = (session.user as { tenantId?: number }).tenantId || 1;
+    const tenantId = (session as { tenantId?: number }).tenantId || 1;
     const service = createResourceLibraryService(tenantId);
     
     const { searchParams } = new URL(request.url);

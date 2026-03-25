@@ -144,7 +144,7 @@ export default function CrisisImpactSection() {
       statisticNumber: 50,
       statisticSuffix: "%+",
       reality: "Of Local Authorities miss statutory deadlines. Children languish while paperwork shuffles between siloed systems.",
-      solution: "AI-powered workflow with evidence ready at the click of a button",
+      solution: "Structured workflow with deadline tracking and evidence always audit-ready",
       color: "bg-amber-500",
       delay: 0.1
     },
@@ -166,7 +166,7 @@ export default function CrisisImpactSection() {
       statisticNumber: 44,
       statisticSuffix: "%",
       reality: "Leave within 5 years. Overburdened with paperwork, unable to differentiate for 30 unique learners, passion replaced by exhaustion.",
-      solution: "AI differentiation saves 10+ hours weekly - time returned to teaching",
+      solution: "Structured differentiation tools reduce planning burden, returning time to teaching",
       color: "bg-rose-500",
       delay: 0.3
     },
@@ -305,8 +305,8 @@ export default function CrisisImpactSection() {
             </div>
             <ul className="space-y-3">
               {[
-                "Teachers spend 10+ hours weekly on differentiation",
-                "Schools gather evidence manually, often incomplete",
+                "Teachers spend hours every week planning for diverse needs manually",
+                "Schools gather evidence manually across disconnected systems",
                 "LAs miss 20-week deadlines, children wait",
                 "Poor EHCPs lead to tribunals and wasted money",
                 "Students disengage, EBSA rates climb",
@@ -330,12 +330,12 @@ export default function CrisisImpactSection() {
             </div>
             <ul className="space-y-3">
               {[
-                "AI differentiates lessons instantly for every learner",
-                "Evidence gathered in real-time, always ready",
-                "Automated workflows ensure deadline compliance",
-                "Quality EHCPs from AI-assisted drafting",
-                "Gamification makes learning engaging again",
-                "EP Marketplace connects schools with professionals"
+                "Structured interventions linked directly to assessment findings",
+                "Evidence gathered systematically, always audit-ready",
+                "Statutory deadline tracking with milestone alerts built in",
+                "EHCP drafting guided by structured clinical templates",
+                "Gamification module makes learning accessible and engaging",
+                "EP Marketplace connects schools with qualified professionals"
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3 text-slate-300">
                   <CheckCircle className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />

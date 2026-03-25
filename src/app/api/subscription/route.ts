@@ -17,8 +17,8 @@ import Stripe from 'stripe';
 import { SubscriptionTier } from '@prisma/client';
 import prisma from '@/lib/prismaSafe';
 import authService from '@/lib/auth/auth-service';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
+
 import { getTenantSubscriptionStatus } from '@/lib/subscription/service';
 
 export const dynamic = 'force-dynamic';
@@ -134,16 +134,16 @@ async function handleGetCurrent(request: NextRequest) {
 /**
  * GET /api/subscription/status
  */
-async function handleGetStatus(_request: NextRequest) {
+async function handleGetStatus(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
 
-    if (!session?.user?.email) {
+    if (!session?.email) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const user = await prisma.users.findUnique({
-      where: { email: session.user.email },
+      where: { email: session.email },
       select: { tenant_id: true },
     });
 
@@ -165,16 +165,16 @@ async function handleGetStatus(_request: NextRequest) {
 /**
  * GET /api/subscription/check-feature
  */
-async function handleCheckFeature(_request: NextRequest) {
+async function handleCheckFeature(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
 
-    if (!session?.user?.email) {
+    if (!session?.email) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const user = await prisma.users.findUnique({
-      where: { email: session.user.email },
+      where: { email: session.email },
       select: { tenant_id: true },
     });
 

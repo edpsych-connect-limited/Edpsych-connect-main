@@ -1,7 +1,8 @@
+import authService from '@/lib/auth/auth-service';
 import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
+
 import { prisma } from '@/lib/prisma';
 
 // Define contribution interface for type safety
@@ -31,9 +32,9 @@ export async function GET(
 ) {
   const params = await props.params;
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }

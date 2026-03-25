@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * Data Warehouse Export API
  *
@@ -12,9 +13,9 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
 
-import { authOptions } from '@/lib/auth';
+
+
 import { logger } from '@/lib/logger';
 import { prisma } from '@/lib/prisma';
 
@@ -50,10 +51,10 @@ export async function GET(request: NextRequest) {
 
     const includePii = url.searchParams.get('includePII') === '1';
 
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const user = (session?.user as any) || null;
+    const user = (session as any)?.user || null;
 
     const usingKey = hasValidExportKey(request);
 

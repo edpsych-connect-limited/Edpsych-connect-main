@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -23,8 +24,8 @@
 
 import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
+
 import { prisma } from '@/lib/prisma';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
@@ -151,11 +152,11 @@ export async function GET(request: NextRequest) {
     let userEmail = null;
     
     // Try NextAuth session first
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     debugLog('Session: ' + JSON.stringify(session));
     
-    if (session?.user?.email) {
-      userEmail = session.user.email;
+    if (session?.email) {
+      userEmail = session.email;
     } else {
       // Fallback to custom auth-token
       const token = request.cookies.get('auth-token')?.value;

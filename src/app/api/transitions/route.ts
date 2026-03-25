@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * Transition Planning API Routes
  * 
@@ -17,8 +18,8 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
+
 import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
 
@@ -87,8 +88,8 @@ const transitionChecklistSchema = z.object({
 // GET: Retrieve transition plans
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.id) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session?.id) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
@@ -202,8 +203,8 @@ export async function GET(request: NextRequest) {
 // POST: Create transition plan, meeting, document, or checklist
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.id) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session?.id) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
@@ -230,7 +231,7 @@ export async function POST(request: NextRequest) {
           supportRequirements: validated.supportRequirements as Record<string, unknown>,
           phases: phases as Record<string, unknown>[],
           status: 'ACTIVE',
-          createdById: session.user.id
+          createdById: session.id
         },
         include: {
           student: {
@@ -263,7 +264,7 @@ export async function POST(request: NextRequest) {
           venue: validated.venue,
           virtualLink: validated.virtualLink,
           status: 'SCHEDULED',
-          createdById: session.user.id
+          createdById: session.id
         }
       });
 
@@ -289,7 +290,7 @@ export async function POST(request: NextRequest) {
           content: validated.content as Record<string, unknown>,
           attachmentUrl: validated.attachmentUrl,
           confidential: validated.confidential,
-          uploadedById: session.user.id,
+          uploadedById: session.id,
           status: 'DRAFT'
         }
       });
@@ -316,11 +317,11 @@ export async function POST(request: NextRequest) {
           transitionPlanId: validated.transitionPlanId,
           phase: validated.phase,
           items: validated.items as Record<string, unknown>[],
-          createdById: session.user.id
+          createdById: session.id
         },
         update: {
           items: validated.items as Record<string, unknown>[],
-          updatedById: session.user.id
+          updatedById: session.id
         }
       });
 
@@ -354,8 +355,8 @@ export async function POST(request: NextRequest) {
 // PUT: Update transition plan or related entities
 export async function PUT(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.id) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session?.id) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
@@ -374,7 +375,7 @@ export async function PUT(request: NextRequest) {
           preparationAreas: body.preparationAreas,
           supportRequirements: body.supportRequirements,
           status: body.status,
-          updatedById: session.user.id
+          updatedById: session.id
         }
       });
 
@@ -403,7 +404,7 @@ export async function PUT(request: NextRequest) {
           ...items[itemIndex],
           completed,
           completedDate: completedDate || new Date().toISOString(),
-          completedBy: session.user.id,
+          completedBy: session.id,
           notes
         };
 
@@ -440,7 +441,7 @@ export async function PUT(request: NextRequest) {
 
       // Create action items from meeting
       if (actions && actions.length > 0) {
-        await createActionItems(meeting.transitionPlanId, actions, session.user.id);
+        await createActionItems(meeting.transitionPlanId, actions, session.id);
       }
 
       return NextResponse.json({
@@ -471,7 +472,7 @@ export async function PUT(request: NextRequest) {
           status,
           notes,
           updatedAt: new Date().toISOString(),
-          updatedBy: session.user.id
+          updatedBy: session.id
         };
 
         const updated = await prisma.transitionPlan.update({

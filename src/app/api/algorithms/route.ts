@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 import { NextRequest, NextResponse } from 'next/server';
 import AlgorithmService from '@/algorithm/services/AlgorithmService';
 import { authenticateRequest } from '@/lib/middleware/auth';

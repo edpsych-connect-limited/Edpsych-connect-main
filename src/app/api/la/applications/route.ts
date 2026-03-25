@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * LA EHCP Applications API
  * 
@@ -9,8 +10,8 @@
 
 import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
+
 import { LAEHCPService, EHCPApplicationStatus, EHCPUrgency, SENPrimaryNeed, LADashboardFilters } from '@/lib/ehcp/la-ehcp-service';
 import { z } from 'zod';
 
@@ -52,9 +53,9 @@ const createApplicationSchema = z.object({
  */
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json(
         { error: 'Unauthorised' },
         { status: 401 }
@@ -62,7 +63,7 @@ export async function GET(request: NextRequest) {
     }
     
     // Verify user has LA access (LA_OFFICER, SEND_CASEWORKER, or ADMIN at LA tenant)
-    const userTenantId = session.user.tenantId;
+    const userTenantId = session.tenant_id;
     if (!userTenantId) {
       return NextResponse.json(
         { error: 'No tenant association found' },
@@ -114,17 +115,17 @@ export async function GET(request: NextRequest) {
  */
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json(
         { error: 'Unauthorised' },
         { status: 401 }
       );
     }
     
-    const userTenantId = session.user.tenantId;
-    const userId = session.user.id;
+    const userTenantId = session.tenant_id;
+    const userId = session.id;
     
     if (!userTenantId || !userId) {
       return NextResponse.json(

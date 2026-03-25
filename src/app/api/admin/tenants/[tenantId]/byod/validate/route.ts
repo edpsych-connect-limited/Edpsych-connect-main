@@ -1,8 +1,9 @@
+import authService from '@/lib/auth/auth-service';
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
+
 import { z } from 'zod';
 
-import { authOptions } from '@/lib/auth';
+
 import { platformPrisma } from '@/lib/prisma';
 import { auditLogger, AuditEventType, AuditSeverity, getIpAddress, getRequestId, getUserAgent } from '@/lib/security/audit-logger';
 import { encryptToString } from '@/lib/security/encryption';
@@ -35,8 +36,8 @@ function userHasRole(session: any, allowedRoles: string[]): boolean {
 }
 
 export async function POST(request: NextRequest, context: { params: Promise<{ tenantId: string }> }) {
-  const session = await getServerSession(authOptions);
-  if (!session?.user) {
+  const session = await authService.getSessionFromRequest(request);
+  if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -73,8 +74,8 @@ export async function POST(request: NextRequest, context: { params: Promise<{ te
     ssl_mode: body.data.ssl_mode,
   });
 
-  const performedBy = String((session.user as any).id ?? 'unknown');
-  const performedByEmail = String((session.user as any).email ?? '');
+  const performedBy = String((session as any).id ?? 'unknown');
+  const performedByEmail = String((session as any).email ?? '');
 
   await auditLogger.log({
     eventType: AuditEventType.DATA_READ,

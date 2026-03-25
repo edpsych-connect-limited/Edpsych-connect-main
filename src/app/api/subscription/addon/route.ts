@@ -1,10 +1,11 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * Add-On Subscription API Route
  * Handles adding premium add-ons to existing subscriptions via Stripe
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
+
 import Stripe from 'stripe';
 
 // Initialize Stripe
@@ -51,8 +52,8 @@ const ADDON_PRICES: Record<string, { monthly: string; annual: string; name: stri
 export async function POST(request: NextRequest) {
   try {
     // Check authentication
-    const session = await getServerSession();
-    if (!session?.user?.email) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session?.email) {
       return NextResponse.json(
         { success: false, message: 'Authentication required' },
         { status: 401 }
@@ -101,7 +102,7 @@ export async function POST(request: NextRequest) {
     const checkoutSession = await stripe.checkout.sessions.create({
       mode: 'subscription',
       payment_method_types: ['card'],
-      customer_email: session.user.email,
+      customer_email: session.email,
       line_items: priceId
         ? [{ price: priceId, quantity: 1 }]
         : [
@@ -123,7 +124,7 @@ export async function POST(request: NextRequest) {
       success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://edpsychconnect.com'}/subscription?addon_success=${addonId}`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://edpsychconnect.com'}/subscription/addon?id=${addonId}&cancelled=true`,
       metadata: {
-        userId: session.user.email,
+        userId: session.email,
         addonId: addonId,
         billingPeriod: billingPeriod,
       },

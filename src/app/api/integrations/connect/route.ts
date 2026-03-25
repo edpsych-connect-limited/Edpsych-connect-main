@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -7,20 +8,20 @@
  */
 
 import { logger } from "@/lib/logger";
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { IntegrationService } from '@/lib/integrations/service';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
 
-export async function POST(request: Request) {
+
+
+export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user?.tenant_id) {
+    if (!session?.tenant_id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const tenantId = session.user.tenant_id;
+    const tenantId = session.tenant_id ?? 0;
     const body = await request.json();
     const { providerId, apiKey, url } = body;
 

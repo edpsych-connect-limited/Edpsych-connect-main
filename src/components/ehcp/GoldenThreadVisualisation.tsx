@@ -143,7 +143,11 @@ const SECTION_CONFIG: Record<EHCPSection, {
   },
 };
 
-export default function GoldenThreadVisualisation() {
+interface GoldenThreadVisualisationProps {
+  ehcpId?: string;
+}
+
+export default function GoldenThreadVisualisation({ ehcpId }: GoldenThreadVisualisationProps = {}) {
   const [data, setData] = useState<GoldenThreadData | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedSection, setSelectedSection] = useState<EHCPSection | 'all'>('all');
@@ -155,13 +159,53 @@ export default function GoldenThreadVisualisation() {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
+      if (!ehcpId) {
+        // No EHCP selected — show empty state
+        setData(null);
+        setLoading(false);
+        return;
+      }
       try {
-        // Mock data demonstrating the Golden Thread concept
-        const mockData: GoldenThreadData = {
-          ehcpId: 'EHCP-2025-0234',
-          studentName: 'Thomas Anderson',
-          lastUpdated: '2025-11-28',
-          overallCoherence: 78,
+        const response = await fetch(`/api/ehcp/golden-thread?ehcpId=${encodeURIComponent(ehcpId)}`);
+        if (!response.ok) throw new Error(`API returned ${response.status}`);
+        const result = await response.json();
+        const analyses = result.analyses ?? result;
+        if (Array.isArray(analyses) && analyses.length > 0) {
+          // Map API shape to GoldenThreadData
+          const latest = analyses[0];
+          setData(latest as GoldenThreadData);
+        } else {
+          setData(null);
+        }
+      } catch (error) {
+        console.error('Error fetching golden thread data:', error);
+        setData(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [ehcpId]);
+
+  // === BEGIN REMOVED MOCK DATA (kept for type reference only) ===
+  // const _EXAMPLE_SHAPE: GoldenThreadData = {
+  //   ehcpId: 'EHCP-2025-0234',
+  //   studentName: 'Example Student',
+  //   overallCoherence: 0,
+  //   sections: [],
+  //   gaps: [],
+  //   strengths: [],
+  //   lastUpdated: '',
+  // };
+  // === END REMOVED MOCK DATA ===
+
+  // Placeholder to satisfy linter (unreachable)
+  const _mockDataShape: Partial<GoldenThreadData> = {
+          ehcpId: '',
+          studentName: '',
+          lastUpdated: '',
+          overallCoherence: 0,
           sections: [
             {
               section: 'communication_interaction',
@@ -406,17 +450,6 @@ export default function GoldenThreadVisualisation() {
             'Good linkage between SALT assessment and provision',
           ],
         };
-
-        setData(mockData);
-      } catch (error) {
-        console.error('Error fetching golden thread data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   // Toggle expanded items (reserved for detail expansion in future)
   const _toggleExpanded = (id: string) => {

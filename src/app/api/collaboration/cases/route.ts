@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * Multi-Agency Collaboration API Routes
  * 
@@ -7,9 +8,9 @@
  * Zero Gap Project - Sprint 7
  */
 
-import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { NextRequest, NextResponse } from 'next/server';
+
+
 import {
   createMultiAgencyService,
   STATUTORY_TIMEFRAMES,
@@ -21,16 +22,16 @@ import { logger } from '@/lib/logger';
 // GET - Fetch collaboration data
 // ============================================================================
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
 
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const user = session.user as any;
+    const user = session as any;
     const tenantId = user.tenantId;
     const agencyId = user.agencyId || `agency_${tenantId}`;
 
@@ -178,16 +179,16 @@ export async function GET(request: Request) {
 // POST - Create cases, documents, meetings, etc.
 // ============================================================================
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
 
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const user = session.user as any;
+    const user = session as any;
     const tenantId = user.tenantId;
     const agencyId = user.agencyId || `agency_${tenantId}`;
 
@@ -367,16 +368,16 @@ export async function POST(request: Request) {
 // PUT - Update status, attendance, etc.
 // ============================================================================
 
-export async function PUT(request: Request) {
+export async function PUT(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
 
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const user = session.user as any;
+    const user = session as any;
     const tenantId = user.tenantId;
     const agencyId = user.agencyId || `agency_${tenantId}`;
 

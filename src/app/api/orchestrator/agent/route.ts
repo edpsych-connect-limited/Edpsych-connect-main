@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
@@ -8,9 +9,9 @@ import { logger } from "@/lib/logger";
  */
 
 
-import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { NextRequest, NextResponse } from 'next/server';
+
+
 import { aiService, AIRequest } from '@/lib/ai-integration';
 import { z } from 'zod';
 
@@ -22,11 +23,11 @@ const agentRequestSchema = z.object({
   useCase: z.string().optional(),
 });
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     // 1. Authentication Check
-    const session = await getServerSession(authOptions);
-    if (!session || !session.user) {
+    const session = await authService.getSessionFromRequest(req);
+    if (!session || !session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -44,7 +45,7 @@ export async function POST(req: Request) {
     }
 
     const { agentId, prompt, context, useCase } = validationResult.data;
-    const userId = session.user.id;
+    const userId = session.id;
 
     // 3. Call AI Service
     // Map agentId to useCase if not provided

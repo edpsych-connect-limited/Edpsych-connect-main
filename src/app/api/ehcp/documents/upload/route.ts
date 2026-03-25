@@ -1,12 +1,13 @@
+import authService from '@/lib/auth/auth-service';
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
+
 import { DocumentManagementService } from '@/lib/ehcp/document-management-service';
 import { logger } from '@/lib/logger';
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(req);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -20,7 +21,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing file or applicationId' }, { status: 400 });
     }
 
-    const tenantId = session.user.tenant_id || 1;
+    const tenantId = session.tenant_id || 1;
     const service = new DocumentManagementService(tenantId);
     
     // In a real implementation with S3/Azure, we would stream the file.
@@ -30,15 +31,15 @@ export async function POST(req: NextRequest) {
 
     // Map role
     let role: 'LA' | 'SCHOOL' | 'PROFESSIONAL' = 'PROFESSIONAL';
-    if (session.user.role === 'LA_ADMIN' || session.user.role === 'LA_OFFICER') role = 'LA';
-    if (session.user.role === 'SENCO' || session.user.role === 'SCHOOL_ADMIN') role = 'SCHOOL';
+    if ((session.role as string) === 'LA_ADMIN' || (session.role as string) === 'LA_OFFICER') role = 'LA';
+    if (session.role === 'SENCO' || session.role === 'SCHOOL_ADMIN') role = 'SCHOOL';
 
     const doc = await service.uploadDocument(
         Number(applicationId),
         file,
         type as any, // Type check needed
-        Number(session.user.id) || 0,
-        session.user.name || 'Unknown',
+        Number(session.id) || 0,
+        session.name || 'Unknown',
         role
     );
 

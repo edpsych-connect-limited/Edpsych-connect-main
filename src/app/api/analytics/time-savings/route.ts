@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * Time Savings Analytics API Routes
  * 
@@ -7,9 +8,9 @@
  * Zero Gap Project - Sprint 4
  */
 
-import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { NextRequest, NextResponse } from 'next/server';
+
+
 import { createTimeSavingsService, INDUSTRY_BENCHMARKS } from '@/lib/analytics/time-savings.service';
 import { logger } from '@/lib/logger';
 
@@ -17,16 +18,16 @@ import { logger } from '@/lib/logger';
 // GET - Get time savings reports
 // ============================================================================
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const user = session.user as any;
+    const user = session as any;
     const tenantId = user.tenantId;
 
     if (!tenantId) {
@@ -115,16 +116,16 @@ export async function GET(request: Request) {
 // POST - Record time savings metric
 // ============================================================================
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const user = session.user as any;
+    const user = session as any;
     const tenantId = user.tenantId;
 
     if (!tenantId) {
@@ -203,16 +204,16 @@ export async function POST(request: Request) {
 // PUT - Save report snapshot
 // ============================================================================
 
-export async function PUT(request: Request) {
+export async function PUT(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const user = session.user as any;
+    const user = session as any;
     const tenantId = user.tenantId;
 
     // Only admins can save reports

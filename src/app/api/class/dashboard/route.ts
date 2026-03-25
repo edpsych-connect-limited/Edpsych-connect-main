@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * CLASS DASHBOARD API
  *
@@ -14,7 +15,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { DataRouterService } from '@/lib/orchestration/data-router.service';
-import { getServerSession } from 'next-auth';
+
 import { logger } from "@/lib/logger";
 
 export const dynamic = 'force-dynamic';
@@ -25,13 +26,13 @@ export async function GET(request: NextRequest) {
     logger.debug('Request URL:', request.url);
 
     // Get session
-    const session = await getServerSession();
+    const session = await authService.getSessionFromRequest(request);
 
-    if (!session || !session.user) {
+    if (!session || !session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const userId = (session.user as any).id;
+    const userId = (session as any).id;
 
     // Get query parameters
     let classRosterId: string | null = null;

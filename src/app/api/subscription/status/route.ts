@@ -1,21 +1,22 @@
+import authService from '@/lib/auth/auth-service';
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prismaSafe';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
+
 import { getTenantSubscriptionStatus } from '@/lib/subscription/service';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(_request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
 
-    if (!session?.user?.email) {
+    if (!session?.email) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const user = await prisma.users.findUnique({
-      where: { email: session.user.email },
+      where: { email: session.email },
       select: { tenant_id: true },
     });
 

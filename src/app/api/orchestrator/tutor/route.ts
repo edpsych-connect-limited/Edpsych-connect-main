@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
@@ -7,9 +8,9 @@ import { logger } from "@/lib/logger";
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { NextRequest, NextResponse } from 'next/server';
+
+
 import { orchestratorService } from '@/services/orchestrator-service';
 import { z } from 'zod';
 
@@ -154,7 +155,7 @@ function generateMotivation(level: string): string {
   return messages[level] || messages.developing;
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     // 1. Parse and Validate Request Body first
     const body = await req.json();
@@ -172,10 +173,10 @@ export async function POST(req: Request) {
     const requestData = validationResult.data;
 
     // 2. Authentication Check - allow demo mode for unauthenticated users
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(req);
     
     // If demo mode requested or no session, return demo response
-    if (requestData.isDemo || !session || !session.user) {
+    if (requestData.isDemo || !session || !session) {
       logger.info('[Orchestrator] Demo tutoring request processed');
       return NextResponse.json({ 
         result: generateDemoResponse(
@@ -188,7 +189,7 @@ export async function POST(req: Request) {
       });
     }
 
-    const userId = session.user.id;
+    const userId = session.id;
 
     // Map learning style
     let learningStyle: 'visual' | 'auditory' | 'kinaesthetic' | 'reading';

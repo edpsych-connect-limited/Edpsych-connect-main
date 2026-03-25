@@ -1,6 +1,7 @@
-import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import authService from '@/lib/auth/auth-service';
+import { NextRequest, NextResponse } from 'next/server';
+
+
 
 // Force dynamic rendering - this route uses headers via getServerSession
 export const dynamic = 'force-dynamic';
@@ -9,11 +10,11 @@ export const dynamic = 'force-dynamic';
  * GET /api/settings/integrations
  * Fetch current integration settings for the user's tenant
  */
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 

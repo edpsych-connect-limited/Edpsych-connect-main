@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * SENCO Dashboard API Routes
  * 
@@ -11,8 +12,8 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
+
 import { SENCODashboardService } from '@/lib/senco/senco-dashboard.service';
 import { z } from 'zod';
 
@@ -49,14 +50,14 @@ const actionItemUpdateSchema = z.object({
 // GET handler
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.id) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session?.id) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
     const { searchParams } = new URL(request.url);
     const action = searchParams.get('action');
-    const schoolId = searchParams.get('schoolId') || session.user.schoolId;
+    const schoolId = searchParams.get('schoolId') || (session.tenant_id != null ? String(session.tenant_id) : undefined);
 
     if (!schoolId) {
       return NextResponse.json(
@@ -132,7 +133,7 @@ export async function GET(request: NextRequest) {
 
       const actions = await sencoService.getActionItems(
         schoolId,
-        session.user.id,
+        session.id,
         { priority, type, status }
       );
 
@@ -177,14 +178,14 @@ export async function GET(request: NextRequest) {
 // POST handler
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.id) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session?.id) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
     const { searchParams } = new URL(request.url);
     const action = searchParams.get('action');
-    const schoolId = searchParams.get('schoolId') || session.user.schoolId;
+    const schoolId = searchParams.get('schoolId') || (session.tenant_id != null ? String(session.tenant_id) : undefined);
 
     if (!schoolId) {
       return NextResponse.json(
@@ -248,8 +249,8 @@ export async function POST(request: NextRequest) {
 // PUT handler
 export async function PUT(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.id) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session?.id) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
@@ -284,7 +285,7 @@ export async function PUT(request: NextRequest) {
       
       const item = await sencoService.updateActionItem(
         validated.itemId,
-        session.user.id,
+        session.id,
         { status: validated.status, notes: validated.notes }
       );
 

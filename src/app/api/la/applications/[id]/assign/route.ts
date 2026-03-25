@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * @copyright EdPsych Connect Limited 2025
  * @license Proprietary - All Rights Reserved
@@ -20,8 +21,8 @@
 
 import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
+
 import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
 
@@ -65,13 +66,13 @@ export async function GET(
 ) {
   const params = await props.params;
   try {
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.email) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session?.email) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const user = await prisma.users.findUnique({
-      where: { email: session.user.email },
+      where: { email: session.email },
       include: { tenants: true },
     });
 
@@ -155,13 +156,13 @@ export async function POST(
 ) {
   const params = await props.params;
   try {
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.email) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session?.email) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const user = await prisma.users.findUnique({
-      where: { email: session.user.email },
+      where: { email: session.email },
       include: { tenants: true },
     });
 
@@ -236,13 +237,13 @@ export async function DELETE(
 ) {
   const params = await props.params;
   try {
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.email) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session?.email) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const user = await prisma.users.findUnique({
-      where: { email: session.user.email },
+      where: { email: session.email },
       include: { tenants: true },
     });
 

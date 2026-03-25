@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * Outcome Tracking API Routes
  * 
@@ -11,8 +12,8 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
+
 import { OutcomeTrackingService } from '@/lib/outcomes/outcome-tracking.service';
 import { z } from 'zod';
 
@@ -69,14 +70,14 @@ const reportRequestSchema = z.object({
 // GET handler
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.id) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session?.id) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
     const { searchParams } = new URL(request.url);
     const action = searchParams.get('action');
-    const schoolId = searchParams.get('schoolId') || session.user.schoolId;
+    const schoolId = searchParams.get('schoolId') || (session.tenant_id != null ? String(String(session.tenant_id)) : undefined);
 
     // Get single outcome
     if (action === 'get') {
@@ -205,8 +206,8 @@ export async function GET(request: NextRequest) {
 // POST handler
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.id) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session?.id) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
@@ -227,7 +228,7 @@ export async function POST(request: NextRequest) {
           },
           timeBound: new Date(validated.timeBound)
         },
-        session.user.id
+        session.id
       );
 
       return NextResponse.json({
@@ -254,7 +255,7 @@ export async function POST(request: NextRequest) {
           supportUsed: validated.supportUsed,
           independenceLevel: validated.independenceLevel
         },
-        session.user.id
+        session.id
       );
 
       return NextResponse.json({
@@ -295,7 +296,7 @@ export async function POST(request: NextRequest) {
         templateId,
         studentId,
         customisations || {},
-        session.user.id
+        session.id
       );
 
       return NextResponse.json({

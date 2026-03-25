@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * SEN2 Returns Export API
  * 
@@ -6,22 +7,22 @@
  * Zero Gap Project - Sprint 1
  */
 
-import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { NextRequest, NextResponse } from 'next/server';
+
+
 import { createSEN2Service } from '@/lib/ehcp/sen2-returns.service';
 import { logger } from '@/lib/logger';
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const user = session.user as any;
+    const user = session as any;
     const tenantId = user.tenantId;
 
     if (!tenantId) {

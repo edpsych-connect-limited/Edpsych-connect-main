@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 import { logger } from "@/lib/logger";
 /**
  * @copyright EdPsych Connect Limited 2025
@@ -7,18 +8,18 @@ import { logger } from "@/lib/logger";
  * Unauthorized copying, modification, distribution, or use is strictly prohibited.
  */
 
-import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { NextRequest, NextResponse } from 'next/server';
+
+
 import { orchestratorService } from '@/services/orchestrator-service';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(_req: Request) {
+export async function GET(_req: NextRequest) {
   try {
     // 1. Authentication Check
-    const session = await getServerSession(authOptions);
-    if (!session || !session.user) {
+    const session = await authService.getSessionFromRequest(_req);
+    if (!session || !session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 

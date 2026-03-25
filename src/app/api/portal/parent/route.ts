@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * Parent Portal API Routes
  * 
@@ -6,9 +7,9 @@
  * Zero Gap Project - Sprint 6
  */
 
-import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { NextRequest, NextResponse } from 'next/server';
+
+
 import { createParentPortalService } from '@/lib/portal/parent-portal.service';
 import { logger } from '@/lib/logger';
 import { auditLogger, AuditEventType, AuditSeverity } from '@/lib/security/audit-logger';
@@ -17,16 +18,16 @@ import { auditLogger, AuditEventType, AuditSeverity } from '@/lib/security/audit
 // GET - Get parent dashboard or child details
 // ============================================================================
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const user = session.user as any;
+    const user = session as any;
     const tenantId = user.tenantId;
 
     if (!tenantId) {
@@ -147,16 +148,16 @@ export async function GET(request: Request) {
 // POST - Send message, add comment, sign document
 // ============================================================================
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const user = session.user as any;
+    const user = session as any;
     const tenantId = user.tenantId;
 
     if (user.role !== 'parent') {
@@ -281,16 +282,16 @@ export async function POST(request: Request) {
 // PUT - Update preferences
 // ============================================================================
 
-export async function PUT(request: Request) {
+export async function PUT(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const user = session.user as any;
+    const user = session as any;
     const tenantId = user.tenantId;
 
     if (user.role !== 'parent') {

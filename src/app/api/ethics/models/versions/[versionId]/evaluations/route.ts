@@ -1,10 +1,11 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * Ethics Fairness Evaluation API
  * Submit fairness evaluations for model versions
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
+
 import { prisma } from '@/lib/prisma';
 import { computeFairnessMetrics, evaluateFairness, FairnessThresholds } from '@/lib/ethics/fairness-metrics';
 
@@ -20,8 +21,8 @@ function getDefaultThresholds(): FairnessThresholds {
 
 export async function POST(request: NextRequest, { params }: { params: { versionId: string } }) {
   try {
-    const session = await getServerSession();
-    if (!session?.user) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -39,7 +40,7 @@ export async function POST(request: NextRequest, { params }: { params: { version
     const appliedThresholds = thresholds || getDefaultThresholds();
     const evaluationResult = evaluateFairness(computedMetrics, appliedThresholds);
 
-    const evaluatorId = parseInt(session.user.id as string, 10);
+    const evaluatorId = parseInt(session.id as string, 10);
 
     const evaluation = await prisma.aIFairnessEvaluation.create({
       data: {

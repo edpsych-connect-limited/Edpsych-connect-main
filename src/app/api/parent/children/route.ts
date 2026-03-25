@@ -1,20 +1,21 @@
+import authService from '@/lib/auth/auth-service';
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
+
 import { prisma } from '@/lib/prisma';
 import { logger } from '@/lib/logger';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(_request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
 
-    if (!session?.user?.id) {
+    if (!session?.id) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
-    const userId = parseInt(session.user.id);
+    const userId = parseInt(session.id);
 
     const links = await prisma.parentChildLink.findMany({
       where: {

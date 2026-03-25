@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * Assessment Analytics API Routes
  * 
@@ -13,8 +14,8 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
+
 import { createAssessmentAnalyticsService } from '@/lib/assessment/assessment-analytics.service';
 import { logger } from '@/lib/logger';
 
@@ -25,16 +26,16 @@ import { logger } from '@/lib/logger';
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json(
         { error: 'Unauthorised' },
         { status: 401 }
       );
     }
 
-    const tenantId = (session.user as { tenantId?: number }).tenantId || 1;
+    const tenantId = (session as { tenantId?: number }).tenantId || 1;
     const service = createAssessmentAnalyticsService(tenantId);
     
     const { searchParams } = new URL(request.url);
@@ -279,17 +280,17 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json(
         { error: 'Unauthorised' },
         { status: 401 }
       );
     }
 
-    const tenantId = (session.user as { tenantId?: number }).tenantId || 1;
-    const userId = parseInt((session.user as { id?: string }).id || '0');
+    const tenantId = (session as { tenantId?: number }).tenantId || 1;
+    const userId = parseInt((session as { id?: string }).id || '0');
     const service = createAssessmentAnalyticsService(tenantId);
     
     const body = await request.json();

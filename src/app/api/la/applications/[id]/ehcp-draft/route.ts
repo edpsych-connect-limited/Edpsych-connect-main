@@ -1,7 +1,8 @@
+import authService from '@/lib/auth/auth-service';
 import { logger } from "@/lib/logger";
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
+
 import { prisma } from '@/lib/prisma';
 
 /**
@@ -14,9 +15,9 @@ export async function GET(
 ) {
   const params = await props.params;
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -117,9 +118,9 @@ export async function POST(
 ) {
   const params = await props.params;
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -128,7 +129,7 @@ export async function POST(
     
     // Check for LA role
     const allowedRoles = ['LA_CASEWORKER', 'LA_MANAGER', 'LA_ADMIN', 'SUPER_ADMIN', 'ADMIN'];
-    if (!session.user.role || !allowedRoles.includes(session.user.role)) {
+    if (!session.role || !allowedRoles.includes(session.role)) {
       return NextResponse.json(
         { error: 'Insufficient permissions' },
         { status: 403 }
@@ -175,10 +176,10 @@ export async function POST(
         event_type: 'DRAFT_UPDATED',
         event_category: 'administrative',
         event_description: 'EHCP draft content updated',
-        triggered_by_id: parseInt(session.user.id as string),
+        triggered_by_id: parseInt(session.id as string),
         metadata: {
           sectionsUpdated: Object.keys(sections),
-          updatedBy: session.user.name,
+          updatedBy: session.name,
         },
       },
     });
@@ -208,9 +209,9 @@ export async function PUT(
 ) {
   const params = await props.params;
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -219,7 +220,7 @@ export async function PUT(
     
     // Check for LA Manager role for finalization
     const allowedRoles = ['LA_MANAGER', 'LA_ADMIN', 'SUPER_ADMIN', 'ADMIN'];
-    if (!session.user.role || !allowedRoles.includes(session.user.role)) {
+    if (!session.role || !allowedRoles.includes(session.role)) {
       return NextResponse.json(
         { error: 'Only LA Managers can finalize EHCP drafts' },
         { status: 403 }
@@ -264,9 +265,9 @@ export async function PUT(
         event_type: 'DRAFT_ISSUED',
         event_category: 'consultation',
         event_description: 'Draft EHCP issued to parents for consultation',
-        triggered_by_id: parseInt(session.user.id as string),
+        triggered_by_id: parseInt(session.id as string),
         metadata: {
-          issuedBy: session.user.name,
+          issuedBy: session.name,
         },
       },
     });

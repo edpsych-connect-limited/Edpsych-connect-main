@@ -1,8 +1,9 @@
+import authService from '@/lib/auth/auth-service';
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
+
 import { z } from 'zod';
 
-import { authOptions } from '@/lib/auth';
+
 import { platformPrisma, invalidateTenantPrismaCache } from '@/lib/prisma';
 import { encryptToString } from '@/lib/security/encryption';
 import { auditLogger, AuditEventType, AuditSeverity, getIpAddress, getRequestId, getUserAgent } from '@/lib/security/audit-logger';
@@ -37,8 +38,8 @@ function redactConfig(config: any) {
 }
 
 export async function GET(_request: NextRequest, context: { params: Promise<{ tenantId: string }> }) {
-  const session = await getServerSession(authOptions);
-  if (!session?.user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const session = await authService.getSessionFromRequest(_request);
+  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   if (!userHasRole(session, ['SUPER_ADMIN'])) return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
 
   const { tenantId } = await context.params;
@@ -50,8 +51,8 @@ export async function GET(_request: NextRequest, context: { params: Promise<{ te
 }
 
 export async function PUT(request: NextRequest, context: { params: Promise<{ tenantId: string }> }) {
-  const session = await getServerSession(authOptions);
-  if (!session?.user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const session = await authService.getSessionFromRequest(request);
+  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   if (!userHasRole(session, ['SUPER_ADMIN'])) return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
 
   const { tenantId } = await context.params;
@@ -105,8 +106,8 @@ export async function PUT(request: NextRequest, context: { params: Promise<{ ten
 
   invalidateTenantPrismaCache(tenant_id);
 
-  const performedBy = String((session.user as any).id ?? 'unknown');
-  const performedByEmail = String((session.user as any).email ?? '');
+  const performedBy = String((session as any).id ?? 'unknown');
+  const performedByEmail = String((session as any).email ?? '');
 
   await auditLogger.log({
     eventType: AuditEventType.DATA_UPDATE,
@@ -138,8 +139,8 @@ export async function PUT(request: NextRequest, context: { params: Promise<{ ten
 }
 
 export async function DELETE(request: NextRequest, context: { params: Promise<{ tenantId: string }> }) {
-  const session = await getServerSession(authOptions);
-  if (!session?.user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const session = await authService.getSessionFromRequest(request);
+  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   if (!userHasRole(session, ['SUPER_ADMIN'])) return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
 
   const { tenantId } = await context.params;
@@ -154,8 +155,8 @@ export async function DELETE(request: NextRequest, context: { params: Promise<{ 
   await platformPrisma.tenantDatabaseConfig.delete({ where: { tenant_id } });
   invalidateTenantPrismaCache(tenant_id);
 
-  const performedBy = String((session.user as any).id ?? 'unknown');
-  const performedByEmail = String((session.user as any).email ?? '');
+  const performedBy = String((session as any).id ?? 'unknown');
+  const performedByEmail = String((session as any).email ?? '');
 
   await auditLogger.log({
     eventType: AuditEventType.DATA_DELETE,

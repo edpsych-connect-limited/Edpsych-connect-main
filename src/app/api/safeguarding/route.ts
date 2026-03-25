@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * Safeguarding API Routes
  * 
@@ -10,8 +11,8 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
+
 import { createSafeguardingService } from '@/lib/safeguarding/safeguarding.service';
 import { logger } from '@/lib/logger';
 import { auditLogger, AuditEventType, AuditSeverity } from '@/lib/security/audit-logger';
@@ -39,17 +40,17 @@ function isDSL(role: string): boolean {
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json(
         { error: 'Unauthorised' },
         { status: 401 }
       );
     }
 
-    const userRole = (session.user as { role?: string }).role || '';
-    const userId = parseInt((session.user as { id?: string }).id || '0');
+    const userRole = (session as { role?: string }).role || '';
+    const userId = parseInt((session as { id?: string }).id || '0');
     
     // Check safeguarding access
     if (!hasSafeguardingAccess(userRole)) {
@@ -60,7 +61,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const tenantId = (session.user as { tenantId?: number }).tenantId || 1;
+    const tenantId = (session as { tenantId?: number }).tenantId || 1;
     const service = createSafeguardingService(tenantId);
     
     const { searchParams } = new URL(request.url);
@@ -205,20 +206,20 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json(
         { error: 'Unauthorised' },
         { status: 401 }
       );
     }
 
-    const userRole = (session.user as { role?: string }).role || '';
-    const userId = parseInt((session.user as { id?: string }).id || '0');
+    const userRole = (session as { role?: string }).role || '';
+    const userId = parseInt((session as { id?: string }).id || '0');
     
     // All staff can report concerns
-    const tenantId = (session.user as { tenantId?: number }).tenantId || 1;
+    const tenantId = (session as { tenantId?: number }).tenantId || 1;
     const service = createSafeguardingService(tenantId);
     
     const body = await request.json();
@@ -396,17 +397,17 @@ export async function POST(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await authService.getSessionFromRequest(request);
     
-    if (!session?.user) {
+    if (!session) {
       return NextResponse.json(
         { error: 'Unauthorised' },
         { status: 401 }
       );
     }
 
-    const userRole = (session.user as { role?: string }).role || '';
-    const userId = parseInt((session.user as { id?: string }).id || '0');
+    const userRole = (session as { role?: string }).role || '';
+    const userId = parseInt((session as { id?: string }).id || '0');
     
     if (!isDSL(userRole)) {
       return NextResponse.json(
@@ -415,7 +416,7 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const tenantId = (session.user as { tenantId?: number }).tenantId || 1;
+    const tenantId = (session as { tenantId?: number }).tenantId || 1;
     const service = createSafeguardingService(tenantId);
     
     const body = await request.json();

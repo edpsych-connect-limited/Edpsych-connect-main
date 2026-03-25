@@ -80,7 +80,7 @@ export default function EccaSpotlight() {
             </p>
             
             <p className="text-slate-400 mb-8 leading-relaxed">
-              Our proprietary ECCA engine runs invisibly in the background, orchestrating every interaction based on real-time psychological first principles. It doesn't just manage learning; it manages the <span className="italic">psychology of learning</span>.
+              Our proprietary ECCA framework structures every assessment and intervention around psychological first principles. It doesn't just manage learning records; it organises them around the <span className="italic">psychology of learning</span>.
             </p>
 
             <Link href="/ai-agents">

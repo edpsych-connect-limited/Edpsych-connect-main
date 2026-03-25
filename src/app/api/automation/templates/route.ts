@@ -1,10 +1,11 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * Automation Templates API
  * Manage intervention templates
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
+
 
 export const dynamic = 'force-dynamic';
 
@@ -66,8 +67,8 @@ const DEFAULT_TEMPLATES = [
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession();
-    if (!session?.user) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -101,8 +102,8 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession();
-    if (!session?.user) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 

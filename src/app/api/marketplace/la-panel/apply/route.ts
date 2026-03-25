@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * LA FRAMEWORK PANEL - APPLICATION API
  * 
@@ -17,18 +18,18 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
+
 import { prisma } from '@/lib/prisma';
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.id) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const userId = parseInt(session.user.id);
+    const userId = parseInt(session.id);
     const data = await request.json();
 
     // Get user's marketplace profile and compliance data
@@ -179,14 +180,14 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.id) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const userId = parseInt(session.user.id);
+    const userId = parseInt(session.id);
 
     // Get user's LA Panel application status and compliance
     const [profile, compliance] = await Promise.all([

@@ -133,83 +133,22 @@ export default function SEN2ReturnGenerator() {
   const fetchSEN2Data = async () => {
     setLoading(true);
     try {
-      // In production, this would call the actual API
-      // For now, generate mock data that represents real SEN2 structure
-      const mockData: SEN2Data = {
-        collectionYear: selectedYear,
-        laCode: '925', // Example LA code
-        laName: 'Demo Local Authority',
-        submissionDate: new Date().toISOString(),
-        
-        ehcPlans: {
-          totalMaintained: 4523,
-          newPlansThisYear: 892,
-          ceasedPlansThisYear: 234,
-          byPrimaryNeed: {
-            ASD: 1245,
-            SEMH: 987,
-            SLCN: 654,
-            MLD: 543,
-            SPLD: 432,
-            SLD: 234,
-            PD: 187,
-            HI: 98,
-            VI: 76,
-            PMLD: 45,
-            MSI: 12,
-            OTH: 10,
-          },
-          byAge: {
-            'Under 5': 234,
-            '5-10': 1567,
-            '11-15': 1823,
-            '16-19': 745,
-            '20-25': 154,
-          },
-          byPlacement: {
-            'Mainstream': 2134,
-            'Special School': 1456,
-            'Independent Special': 543,
-            'Alternative Provision': 187,
-            'Post-16': 156,
-            'Home Education': 47,
-          },
-        },
-        
-        assessments: {
-          newRequestsReceived: 1234,
-          requestsWithin20Weeks: 987,
-          requestsExceeding20Weeks: 156,
-          refusalsToAssess: 91,
-          assessmentsNotIssued: 45,
-          mediationCases: 67,
-          tribunalAppeals: 23,
-        },
-        
-        placements: {
-          mainstream: 2134,
-          specialSchool: 1456,
-          independentSpecial: 543,
-          alternativeProvision: 187,
-          postSixteen: 156,
-          homeEducation: 47,
-        },
-        
-        validationErrors: [],
-        validationWarnings: [
-          {
-            field: 'assessments.requestsExceeding20Weeks',
-            message: 'High number of cases exceeding 20-week deadline',
-            severity: 'warning',
-            suggestion: 'Review workflow efficiency and resource allocation',
-          },
-        ],
-        isValid: true,
-      };
-      
-      setSen2Data(mockData);
+      const response = await fetch(`/api/ehcp/sen2?year=${selectedYear}`);
+      if (!response.ok) {
+        throw new Error(`API returned ${response.status}`);
+      }
+      const result = await response.json();
+      // Map API response to SEN2Data shape expected by the UI
+      if (result && (Array.isArray(result) ? result.length > 0 : true)) {
+        const apiData = Array.isArray(result) ? result[0] : result;
+        setSen2Data(apiData as SEN2Data);
+      } else {
+        // No data available yet for this year — show empty state
+        setSen2Data(null);
+      }
     } catch (error) {
       console.error('Error fetching SEN2 data:', error);
+      setSen2Data(null);
     } finally {
       setLoading(false);
     }

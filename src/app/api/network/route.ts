@@ -1,3 +1,4 @@
+import authService from '@/lib/auth/auth-service';
 /**
  * Professional Network API Routes
  * 
@@ -11,8 +12,8 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
+
 import { ProfessionalNetworkService } from '@/lib/network/professional-network.service';
 import { z } from 'zod';
 
@@ -126,14 +127,14 @@ const endorsementSchema = z.object({
 // GET handler
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.id) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session?.id) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
     const { searchParams } = new URL(request.url);
     const action = searchParams.get('action');
-    const userId = searchParams.get('userId') || session.user.id;
+    const userId = searchParams.get('userId') || session.id;
 
     // Get profile
     if (action === 'profile') {
@@ -177,7 +178,7 @@ export async function GET(request: NextRequest) {
     // Get connections
     if (action === 'connections') {
       const status = searchParams.get('status') as 'PENDING' | 'ACCEPTED' || 'ACCEPTED';
-      const connections = await networkService.getConnections(session.user.id, status);
+      const connections = await networkService.getConnections(session.id, status);
 
       return NextResponse.json({
         success: true,
@@ -187,7 +188,7 @@ export async function GET(request: NextRequest) {
 
     // Get user's communities
     if (action === 'myCommunities') {
-      const communities = await networkService.getUserCommunities(session.user.id);
+      const communities = await networkService.getUserCommunities(session.id);
 
       return NextResponse.json({
         success: true,
@@ -256,7 +257,7 @@ export async function GET(request: NextRequest) {
 
     // Get network analytics
     if (action === 'analytics') {
-      const analytics = await networkService.getNetworkAnalytics(session.user.id);
+      const analytics = await networkService.getNetworkAnalytics(session.id);
 
       return NextResponse.json({
         success: true,
@@ -281,8 +282,8 @@ export async function GET(request: NextRequest) {
 // POST handler
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.id) {
+    const session = await authService.getSessionFromRequest(request);
+    if (!session?.id) {
       return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
     }
 
@@ -293,7 +294,7 @@ export async function POST(request: NextRequest) {
     // Update profile
     if (action === 'updateProfile') {
       const validated = profileUpdateSchema.parse(body);
-      const profile = await networkService.updateProfile(session.user.id, validated as any);
+      const profile = await networkService.updateProfile(session.id, validated as any);
 
       return NextResponse.json({
         success: true,
@@ -306,7 +307,7 @@ export async function POST(request: NextRequest) {
     if (action === 'connect') {
       const validated = connectionRequestSchema.parse(body);
       
-      if (validated.receiverId === session.user.id) {
+      if (validated.receiverId === session.id) {
         return NextResponse.json(
           { error: 'Cannot connect with yourself' },
           { status: 400 }
@@ -314,7 +315,7 @@ export async function POST(request: NextRequest) {
       }
 
       const connection = await networkService.sendConnectionRequest(
-        session.user.id,
+        session.id,
         validated.receiverId,
         validated.connectionType,
         validated.message
@@ -340,7 +341,7 @@ export async function POST(request: NextRequest) {
 
       const connection = await networkService.respondToConnection(
         connectionId,
-        session.user.id,
+        session.id,
         accept
       );
 
@@ -354,7 +355,7 @@ export async function POST(request: NextRequest) {
     // Create community
     if (action === 'createCommunity') {
       const validated = communitySchema.parse(body);
-      const community = await networkService.createCommunity(session.user.id, {
+      const community = await networkService.createCommunity(session.id, {
         ...validated,
         tags: validated.tags || [],
         moderatorIds: [],
@@ -380,7 +381,7 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      const result = await networkService.joinCommunity(session.user.id, communityId);
+      const result = await networkService.joinCommunity(session.id, communityId);
 
       return NextResponse.json({
         success: true,
@@ -393,7 +394,7 @@ export async function POST(request: NextRequest) {
     if (action === 'createDiscussion') {
       const validated = discussionSchema.parse(body);
       const discussion = await networkService.createDiscussion(
-        session.user.id,
+        session.id,
         validated.communityId,
         {
           title: validated.title,
@@ -415,7 +416,7 @@ export async function POST(request: NextRequest) {
       const validated = replySchema.parse(body);
       const reply = await networkService.addReply(
         validated.discussionId,
-        session.user.id,
+        session.id,
         validated.content,
         validated.parentReplyId
       );
@@ -438,7 +439,7 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      const reply = await networkService.markReplyHelpful(replyId, session.user.id);
+      const reply = await networkService.markReplyHelpful(replyId, session.id);
 
       return NextResponse.json({
         success: true,
@@ -450,7 +451,7 @@ export async function POST(request: NextRequest) {
     // Share resource
     if (action === 'shareResource') {
       const validated = resourceSchema.parse(body);
-      const resource = await networkService.shareResource(session.user.id, {
+      const resource = await networkService.shareResource(session.id, {
         ...validated,
         tags: validated.tags || [],
         sendTypes: validated.sendTypes || [],
@@ -470,7 +471,7 @@ export async function POST(request: NextRequest) {
     if (action === 'requestMentoring') {
       const validated = mentoringRequestSchema.parse(body);
       
-      if (validated.mentorId === session.user.id) {
+      if (validated.mentorId === session.id) {
         return NextResponse.json(
           { error: 'Cannot mentor yourself' },
           { status: 400 }
@@ -478,7 +479,7 @@ export async function POST(request: NextRequest) {
       }
 
       const relationship = await networkService.requestMentoring(
-        session.user.id,
+        session.id,
         validated.mentorId,
         {
           focusAreas: validated.focusAreas,
@@ -511,7 +512,7 @@ export async function POST(request: NextRequest) {
 
       const relationship = await networkService.respondToMentoringRequest(
         relationshipId,
-        session.user.id,
+        session.id,
         accept
       );
 
@@ -535,7 +536,7 @@ export async function POST(request: NextRequest) {
 
       const relationship = await networkService.recordMentoringSession(
         relationshipId,
-        session.user.id,
+        session.id,
         {
           date: new Date(date),
           duration,
@@ -556,7 +557,7 @@ export async function POST(request: NextRequest) {
     if (action === 'endorse') {
       const validated = endorsementSchema.parse(body);
       
-      if (validated.toUserId === session.user.id) {
+      if (validated.toUserId === session.id) {
         return NextResponse.json(
           { error: 'Cannot endorse yourself' },
           { status: 400 }
@@ -564,7 +565,7 @@ export async function POST(request: NextRequest) {
       }
 
       const endorsement = await networkService.endorseSkill(
-        session.user.id,
+        session.id,
         validated.toUserId,
         validated.skill,
         validated.message
@@ -580,7 +581,7 @@ export async function POST(request: NextRequest) {
     // Create event
     if (action === 'createEvent') {
       const validated = eventSchema.parse(body);
-      const event = await networkService.createEvent(session.user.id, {
+      const event = await networkService.createEvent(session.id, {
         ...validated,
         speakers: validated.speakers || [],
         startDate: new Date(validated.startDate),
@@ -608,7 +609,7 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      const result = await networkService.registerForEvent(session.user.id, eventId);
+      const result = await networkService.registerForEvent(session.id, eventId);
 
       return NextResponse.json({
         success: true,
