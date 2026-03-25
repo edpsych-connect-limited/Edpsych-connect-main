@@ -71,7 +71,7 @@ export default function BehaviourTrackerPage() {
       <div className="max-w-6xl mx-auto">
         <header className="mb-8 flex items-center justify-between">
           <div>
-            <Link href="/demo" className="text-indigo-400 hover:text-indigo-300 text-sm mb-4 inline-block">&lt; Back to Dashboard</Link>
+            <Link href="/dashboard" className="text-indigo-400 hover:text-indigo-300 text-sm mb-4 inline-block">&lt; Back to Dashboard</Link>
             <h1 className="text-3xl font-bold flex items-center gap-3">
               <Activity className="w-8 h-8 text-orange-500" />
               Behaviour Tracker

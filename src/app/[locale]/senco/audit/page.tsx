@@ -9,7 +9,7 @@ export default function SencoAuditPage() {
     <div className="min-h-screen bg-slate-950 text-white p-8">
       <div className="max-w-4xl mx-auto">
         <header className="mb-8">
-          <Link href="/demo" className="text-indigo-400 hover:text-indigo-300 text-sm mb-4 inline-block">&lt; Back to Demo</Link>
+          <Link href="/school/dashboard" className="text-indigo-400 hover:text-indigo-300 text-sm mb-4 inline-block">&lt; Back to Dashboard</Link>
           <h1 className="text-3xl font-bold flex items-center gap-3">
             <ClipboardCheck className="w-8 h-8 text-emerald-500" />
             SENCO Classroom Audit
