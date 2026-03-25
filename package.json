@@ -54,7 +54,7 @@
     "validate:report": "npx validate-code report src",
     "validate:setup": "bash tools/setup-validation.sh",
     "test:e2e": "cross-env CYPRESS_CACHE_FOLDER=E:\\cypress-cache cypress run",
-    "test:e2e:smoke": "npm run test:e2e -- --spec \"cypress/e2e/sanity.cy.ts,cypress/e2e/auth.cy.ts,cypress/e2e/parent-portal.cy.ts,cypress/e2e/guidance-evidence.cy.ts\"",
+    "test:e2e:smoke": "npm run test:e2e -- --spec \"cypress/e2e/sanity.cy.ts,cypress/e2e/phase1-corridor.cy.ts,cypress/e2e/auth.cy.ts,cypress/e2e/parent-portal.cy.ts,cypress/e2e/guidance-evidence.cy.ts\"",
     "test:e2e:regression": "npm run test:e2e -- --spec \"cypress/e2e/sanity.cy.ts,cypress/e2e/auth.cy.ts,cypress/e2e/auth/login.cy.ts,cypress/e2e/auth/role-smoke-test.cy.ts,cypress/e2e/onboarding.cy.ts,cypress/e2e/help-center.cy.ts,cypress/e2e/demo.cy.ts,cypress/e2e/ehcp.cy.ts,cypress/e2e/la-portal.cy.ts,cypress/e2e/researcher.cy.ts,cypress/e2e/safety-net.cy.ts,cypress/e2e/assessment-collaboration.cy.ts,cypress/e2e/coding-curriculum.cy.ts,cypress/e2e/student-lesson.cy.ts,cypress/e2e/extended-features.cy.ts,cypress/e2e/functionality.cy.ts,cypress/e2e/routing.cy.ts,cypress/e2e/ai-tutoring.cy.ts\"",
     "test:e2e:a11y": "npm run test:e2e -- --spec \"cypress/e2e/ui-ux.cy.ts\"",
     "test:e2e:dev": "powershell -ExecutionPolicy Bypass -File run-e2e-dev.ps1",
