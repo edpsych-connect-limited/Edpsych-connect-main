@@ -1,10 +1,39 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Heart, TrendingUp, Smile } from 'lucide-react';
+import { Heart, TrendingUp, Loader2 } from 'lucide-react';
+
+interface WellbeingMetrics {
+  staffMorale: number | null;
+  staffMoraleTrend: number | null;
+  studentAnxiety: string | null;
+  responseRate: number | null;
+}
 
 export default function WellbeingSurveyPage() {
+  const [metrics, setMetrics] = useState<WellbeingMetrics | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchMetrics() {
+      try {
+        const res = await fetch('/api/wellbeing?action=summary');
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success) {
+            setMetrics(json.data);
+          }
+        }
+      } catch {
+        // API not yet implemented — show empty states
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchMetrics();
+  }, []);
+
   return (
     <div className="min-h-screen bg-slate-950 text-white p-8">
       <div className="max-w-4xl mx-auto">
@@ -21,7 +50,7 @@ export default function WellbeingSurveyPage() {
             <div>
               <p className="text-sm font-semibold text-white">Decision Support</p>
               <p className="text-sm text-slate-400">
-                Review shifts in morale or anxiety first, then launch a targeted survey. Favor short
+                Review shifts in morale or anxiety first, then launch a targeted survey. Favour short
                 check-ins when response rate is high.
               </p>
             </div>
@@ -31,25 +60,61 @@ export default function WellbeingSurveyPage() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
-            <div className="text-slate-400 text-sm mb-1">Staff Morale</div>
-            <div className="text-3xl font-bold text-emerald-400">7.8/10</div>
-            <div className="text-xs text-emerald-500 flex items-center mt-1">
-              <TrendingUp className="w-3 h-3 mr-1" /> +0.4 this week
+        {loading ? (
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="w-8 h-8 animate-spin text-pink-500" />
+          </div>
+        ) : metrics ? (
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
+              <div className="text-slate-400 text-sm mb-1">Staff Morale</div>
+              {metrics.staffMorale !== null ? (
+                <>
+                  <div className="text-3xl font-bold text-emerald-400">{metrics.staffMorale}/10</div>
+                  {metrics.staffMoraleTrend !== null && (
+                    <div className={`text-xs flex items-center mt-1 ${metrics.staffMoraleTrend >= 0 ? 'text-emerald-500' : 'text-red-400'}`}>
+                      <TrendingUp className="w-3 h-3 mr-1" />
+                      {metrics.staffMoraleTrend >= 0 ? '+' : ''}{metrics.staffMoraleTrend} this week
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="text-slate-500 text-sm mt-2">No survey data yet</div>
+              )}
+            </div>
+            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
+              <div className="text-slate-400 text-sm mb-1">Student Anxiety</div>
+              {metrics.studentAnxiety ? (
+                <>
+                  <div className="text-3xl font-bold text-amber-400">{metrics.studentAnxiety}</div>
+                  <div className="text-xs text-slate-500 mt-1">Based on recent surveys</div>
+                </>
+              ) : (
+                <div className="text-slate-500 text-sm mt-2">No survey data yet</div>
+              )}
+            </div>
+            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
+              <div className="text-slate-400 text-sm mb-1">Response Rate</div>
+              {metrics.responseRate !== null ? (
+                <>
+                  <div className="text-3xl font-bold text-indigo-400">{metrics.responseRate}%</div>
+                  <div className="text-xs text-indigo-500 mt-1">Latest survey cycle</div>
+                </>
+              ) : (
+                <div className="text-slate-500 text-sm mt-2">No surveys launched yet</div>
+              )}
             </div>
           </div>
-          <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
-            <div className="text-slate-400 text-sm mb-1">Student Anxiety</div>
-            <div className="text-3xl font-bold text-amber-400">Medium</div>
-            <div className="text-xs text-slate-500 mt-1">Stable vs last term</div>
+        ) : (
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            {['Staff Morale', 'Student Anxiety', 'Response Rate'].map((label) => (
+              <div key={label} className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
+                <div className="text-slate-400 text-sm mb-1">{label}</div>
+                <div className="text-slate-500 text-sm mt-2">No data available</div>
+              </div>
+            ))}
           </div>
-          <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
-            <div className="text-slate-400 text-sm mb-1">Response Rate</div>
-            <div className="text-3xl font-bold text-indigo-400">92%</div>
-            <div className="text-xs text-indigo-500 mt-1">High engagement</div>
-          </div>
-        </div>
+        )}
 
         <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
           <h2 className="text-xl font-semibold mb-6">Launch New Survey</h2>
