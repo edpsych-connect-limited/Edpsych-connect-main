@@ -16,7 +16,7 @@
 
 export const dynamic = 'force-dynamic';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/lib/auth/hooks';
 import { useRouter } from 'next/navigation';
@@ -102,17 +102,47 @@ const modules = [
   }
 ];
 
-const quickStats = [
-  { label: 'Total EHCPs', value: '847', change: '+12 this month', trend: 'up' },
-  { label: 'Reviews Overdue', value: '23', change: '3 approaching', trend: 'warning' },
-  { label: 'Compliance Rate', value: '94.2%', change: '+2.1% vs last quarter', trend: 'up' },
-  { label: 'Active Tribunals', value: '5', change: '2 hearings scheduled', trend: 'neutral' }
-];
+interface EhcpStats {
+  totalEhcps: number;
+  reviewsOverdue: number;
+  complianceRate: string;
+  activeTribunals: number;
+}
 
 export default function EHCPModulesHub() {
   const { user, isLoading } = useAuth();
   const router = useRouter();
   const [showVideo, setShowVideo] = useState(false);
+  const [ehcpStats, setEhcpStats] = useState<EhcpStats | null>(null);
+  const [statsLoading, setStatsLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchStats() {
+      try {
+        const [ehcpRes, complianceRes, tribunalsRes] = await Promise.all([
+          fetch('/api/ehcp'),
+          fetch('/api/ehcp/compliance-risk?action=summary'),
+          fetch('/api/ehcp/mediation?action=tribunals-summary'),
+        ]);
+        const ehcpData = ehcpRes.ok ? await ehcpRes.json() : null;
+        const complianceData = complianceRes.ok ? await complianceRes.json() : null;
+        const tribunalsData = tribunalsRes.ok ? await tribunalsRes.json() : null;
+        setEhcpStats({
+          totalEhcps: ehcpData?.pagination?.totalCount ?? ehcpData?.ehcps?.length ?? 0,
+          reviewsOverdue: complianceData?.data?.overdueReviews ?? 0,
+          complianceRate: complianceData?.data?.overallCompliance != null
+            ? `${complianceData.data.overallCompliance}%`
+            : 'N/A',
+          activeTribunals: tribunalsData?.data?.activeTribunals ?? 0,
+        });
+      } catch {
+        setEhcpStats({ totalEhcps: 0, reviewsOverdue: 0, complianceRate: 'N/A', activeTribunals: 0 });
+      } finally {
+        setStatsLoading(false);
+      }
+    }
+    fetchStats();
+  }, []);
 
   if (isLoading) {
     return (
@@ -163,7 +193,12 @@ export default function EHCPModulesHub() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          {quickStats.map((stat) => (
+          {[
+            { label: 'Total EHCPs', value: statsLoading ? '—' : String(ehcpStats?.totalEhcps ?? 0), trend: 'up' },
+            { label: 'Reviews Overdue', value: statsLoading ? '—' : String(ehcpStats?.reviewsOverdue ?? 0), trend: (ehcpStats?.reviewsOverdue ?? 0) > 0 ? 'warning' : 'neutral' },
+            { label: 'Compliance Rate', value: statsLoading ? '—' : (ehcpStats?.complianceRate ?? 'N/A'), trend: 'up' },
+            { label: 'Active Tribunals', value: statsLoading ? '—' : String(ehcpStats?.activeTribunals ?? 0), trend: 'neutral' },
+          ].map((stat) => (
             <div
               key={stat.label}
               className="bg-white rounded-xl shadow-sm border p-6"
@@ -179,9 +214,7 @@ export default function EHCPModulesHub() {
                       ? 'text-amber-600'
                       : 'text-gray-500'
                   }`}
-                >
-                  {stat.change}
-                </span>
+                />
               </div>
             </div>
           ))}
@@ -282,35 +315,10 @@ export default function EHCPModulesHub() {
           <div className="px-6 py-4 border-b bg-gray-50">
             <h2 className="text-lg font-semibold text-gray-900">Recent Activity</h2>
           </div>
-          <div className="divide-y">
-            {[
-              { action: 'Annual review completed', ehcp: 'EHCP-2024-0847', time: '2 hours ago', type: 'success' },
-              { action: 'Phase transfer initiated', ehcp: 'EHCP-2024-0832', time: '4 hours ago', type: 'info' },
-              { action: 'Compliance alert triggered', ehcp: 'EHCP-2024-0815', time: '6 hours ago', type: 'warning' },
-              { action: 'Mediation case opened', ehcp: 'EHCP-2024-0798', time: '1 day ago', type: 'neutral' },
-              { action: 'SEN2 return submitted', ehcp: 'Academic Year 2023-24', time: '2 days ago', type: 'success' }
-            ].map((activity, idx) => (
-              <div key={idx} className="px-6 py-4 flex items-center justify-between hover:bg-gray-50">
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`w-2 h-2 rounded-full ${
-                      activity.type === 'success'
-                        ? 'bg-green-500'
-                        : activity.type === 'warning'
-                        ? 'bg-amber-500'
-                        : activity.type === 'info'
-                        ? 'bg-blue-500'
-                        : 'bg-gray-400'
-                    }`}
-                  />
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">{activity.action}</p>
-                    <p className="text-xs text-gray-500">{activity.ehcp}</p>
-                  </div>
-                </div>
-                <span className="text-xs text-gray-400">{activity.time}</span>
-              </div>
-            ))}
+          <div className="px-6 py-10 text-center text-gray-500 text-sm">
+            <LayoutDashboard className="w-10 h-10 mx-auto mb-3 opacity-30" />
+            <p className="font-medium text-gray-700">No recent activity</p>
+            <p className="mt-1">EHCP activity will appear here as your team works on plans.</p>
           </div>
         </div>
       </div>
