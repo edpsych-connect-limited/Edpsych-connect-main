@@ -17,7 +17,7 @@ export default function EccaSpotlight() {
     {
       char: 'E',
       word: 'Emotion',
-      desc: "Real-time affective computing tracking student anxiety and engagement states.",
+      desc: "Structured observation of emotional and motivational factors affecting learning — anxiety, engagement, and self-regulation — captured as part of the EP's clinical picture.",
       icon: Heart,
       color: "text-rose-400",
       bg: "bg-rose-400/10"
@@ -25,7 +25,7 @@ export default function EccaSpotlight() {
     {
       char: 'C',
       word: 'Cognition',
-      desc: "Dynamic profiling of working memory, processing speed, and learning schema.",
+      desc: "Strengths-based assessment of working memory, processing, and executive function using EP observation and mediated learning — grounded in Vygotsky and Baddeley's frameworks.",
       icon: Brain,
       color: "text-indigo-400",
       bg: "bg-indigo-400/10"
@@ -33,7 +33,7 @@ export default function EccaSpotlight() {
     {
       char: 'C',
       word: 'Context',
-      desc: "Environmental analysis adjusting for sensory load and peer dynamics.",
+      desc: "Systematic capture of environmental, social, and curriculum factors — sensory load, peer dynamics, and classroom conditions — that shape how a child learns and responds.",
       icon: Map,
       color: "text-emerald-400",
       bg: "bg-emerald-400/10"
@@ -41,7 +41,7 @@ export default function EccaSpotlight() {
     {
       char: 'A',
       word: 'Application',
-      desc: "Just-in-time intervention delivery matched to current cognitive load.",
+      desc: "Assessment findings map directly to evidence-based interventions and EP recommendations — linking clinical insight to structured provision in one connected workflow.",
       icon: Zap,
       color: "text-amber-400",
       bg: "bg-amber-400/10"
