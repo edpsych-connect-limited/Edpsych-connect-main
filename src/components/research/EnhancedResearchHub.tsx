@@ -330,16 +330,44 @@ export default function EnhancedResearchHub({ initialStudies = [] }: EnhancedRes
     }
   };
 
-  // Use initialStudies if available, otherwise fallback to mock data
+  // Use initialStudies if available; ACTIVE_STUDIES are only used as demo fallback when
+  // no real studies exist in the database yet.
   const studies = initialStudies.length > 0 ? initialStudies : ACTIVE_STUDIES;
+  const usingRealData = initialStudies.length > 0;
+
+  // Derive stats from real study data where possible; suppress fabricated numbers
+  const activeStudyCount = usingRealData
+    ? studies.filter(s => ['Recruiting', 'Data Collection', 'Analysis'].includes(s.status)).length
+    : studies.length;
+  const totalParticipants = usingRealData
+    ? studies.reduce((sum, s) => sum + (s.participants || 0), 0)
+    : null;
+  const ethicsApprovedCount = usingRealData
+    ? studies.filter(s => s.ethicsApproval && s.ethicsApproval !== 'Pending').length
+    : null;
 
   const researchStats = [
-    { label: 'Active Studies', value: '12', icon: Beaker, color: 'blue', trend: '+3 this year' },
-    { label: 'Total Participants', value: '15,450', icon: Users, color: 'green', trend: '+2,100 this month' },
-    { label: 'Data Points Collected', value: '2.4M', icon: Database, color: 'purple', trend: '99.9% integrity' },
-    { label: 'Peer-Reviewed Papers', value: '24', icon: FileText, color: 'orange', trend: '+8 in 2024' },
-    { label: 'Ethical Approvals', value: '47', icon: Shield, color: 'emerald', trend: '100% compliance' },
-    { label: 'Partner Institutions', value: '18', icon: GraduationCap, color: 'indigo', trend: '+5 universities' },
+    {
+      label: 'Active Studies',
+      value: String(activeStudyCount),
+      icon: Beaker,
+      color: 'blue',
+      trend: usingRealData ? 'From database' : 'Demo data',
+    },
+    {
+      label: 'Total Participants',
+      value: totalParticipants !== null ? totalParticipants.toLocaleString() : '—',
+      icon: Users,
+      color: 'green',
+      trend: usingRealData ? 'Enrolled participants' : 'Demo data',
+    },
+    {
+      label: 'Ethical Approvals',
+      value: ethicsApprovedCount !== null ? String(ethicsApprovedCount) : '—',
+      icon: Shield,
+      color: 'emerald',
+      trend: usingRealData ? 'Approved studies' : 'Demo data',
+    },
   ];
 
   const filteredStudies = studies.filter(study => 
